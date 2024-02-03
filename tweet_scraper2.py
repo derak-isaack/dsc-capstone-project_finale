@@ -12,9 +12,9 @@ def get_tweets(name, modes, no):
     data= pd.DataFrame(final_tweets, columns=['text','date','No_of_likes','No_of_tweets'])
     return data 
 
-#Store the tweets in a dataframe 
-data = pd.DataFrame(get_tweets("eabl serengeti until:2024-01-31 since:2006-09-01", "term", 200))
+#Scrape EABL Tusker sentiments and store them in  a DataFrame.
+data = pd.DataFrame(get_tweets("eabl tusker until:2018-02-21 since:2006-08-01", "term", 75))
 
 data['date'] = pd.to_datetime(data['date'], format="%b %d, %Y · %I:%M %p %Z")
 
-data.to_csv("serengetiEABL_sentiments.csv", index=False)
+data.to_csv("EABL_Tusker_sentiments.csv", index=False)

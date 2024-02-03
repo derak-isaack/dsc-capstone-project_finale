@@ -17,4 +17,4 @@ data = pd.DataFrame(get_tweets("eabl pilsner until:2024-01-31 since:2006-09-01",
 
 data['date'] = pd.to_datetime(data['date'], format="%b %d, %Y · %I:%M %p %Z")
 
-data.to_csv("tusker_sentiments2.csv", index=False)
+data.to_csv("Plisner.csv", index=False)

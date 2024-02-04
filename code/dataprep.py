@@ -2,7 +2,7 @@
 import pandas as pd
 
 # Define the relative path to the csv file
-csv_path = r"C:\Users\ADMIN\OneDrive\Desktop\EABL\EABL-Stock-Performance-Analysis-with-Data\data\raw\stockdata.csv"
+csv_path = r"C:\Users\ADMIN\OneDrive\Desktop\DEREK\dsc-capstone-project_finale\data\raw\stockdata.csv"
 
 import matplotlib.pyplot as plt
 from statsmodels.tsa.stattools import adfuller
@@ -46,4 +46,4 @@ def explore_time_series_data(file_path):
 
 # Example usage:
 if __name__ == "__main__":
-    explore_time_series_data( r"C:\Users\ADMIN\OneDrive\Desktop\EABL\EABL-Stock-Performance-Analysis-with-Data\data\raw\stockdata.csv")
+    explore_time_series_data( r"C:\Users\ADMIN\OneDrive\Desktop\DEREK\dsc-capstone-project_finale\data\raw\stockdata.csv")

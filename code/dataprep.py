@@ -1,49 +1,31 @@
-# Import pandas library
-import pandas as pd
-
-# Define the relative path to the csv file
-csv_path = r"C:\Users\ADMIN\OneDrive\Desktop\DEREK\dsc-capstone-project_finale\data\raw\stockdata.csv"
-
+import numpy as np
 import matplotlib.pyplot as plt
-from statsmodels.tsa.stattools import adfuller
 
-def explore_time_series_data(file_path):
-    # Load dataset
-    data = pd.read_csv(file_path)
-    
-    # Display descriptive summary
-    print("Descriptive Summary:")
-    print(data.describe())
-    print("\n")
-    
-    # Convert to datetime and set index
-    data['Date'] = pd.to_datetime(data['Date'])
-    data.set_index('Date', inplace=True)
-    
-    # Handle missing values
-    data.fillna(method='ffill', inplace=True)
-    
-    # Plot the time series
-    plt.figure(figsize=(10, 6))
-    plt.plot(data.index, data['Close'], color='blue')
-    plt.title('Time Series Data')
-    plt.xlabel('Date')
-    plt.ylabel('Close')
-    plt.grid(True)
-    plt.show()
-    
-    # Check for stationarity
-    result = adfuller(data['Value'])
-    print('ADF Statistic:', result[0])
-    print('p-value:', result[1])
-    print('Critical Values:')
-    for key, value in result[4].items():
-        print(f'   {key}: {value}')
-    if result[1] <= 0.05:
-        print("The series is likely stationary.")
-    else:
-        print("The series is likely non-stationary.")
+class VolatilityInsights:
+    """
+    A class to calculate and analyze stock volatility.
+    """
+    def __init__(self, data):
+        self.data = data
+        # Calculate daily returns
+        self.data['Daily Returns'] = self.data['Close'].pct_change()
+        # Calculate rolling 30-day volatility (standard deviation of daily returns)
+        self.data['Volatility'] = self.data['Daily Returns'].rolling(window=30).std() * np.sqrt(252)
 
-# Example usage:
-if __name__ == "__main__":
-    explore_time_series_data( r"C:\Users\ADMIN\OneDrive\Desktop\DEREK\dsc-capstone-project_finale\data\raw\stockdata.csv")
+    def plot_volatility(self):
+        """
+        Plot the rolling 30-day volatility.
+        """
+        plt.figure(figsize=(14, 7))
+        plt.plot(self.data['Date'], self.data['Volatility'], label='Rolling 30-Day Volatility')
+        plt.title('EABL Stock Volatility Over Time')
+        plt.xlabel('Date')
+        plt.ylabel('Volatility')
+        plt.legend()
+        plt.show()
+
+# Instantiate the class with filled data
+volatility_insights = VolatilityInsights(data_filled)
+
+# Plotting the volatility
+volatility_insights.plot_volatility()

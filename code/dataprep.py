@@ -24,8 +24,3 @@ class VolatilityInsights:
         plt.legend()
         plt.show()
 
-# Instantiate the class with filled data
-volatility_insights = VolatilityInsights(data_filled)
-
-# Plotting the volatility
-volatility_insights.plot_volatility()

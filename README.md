@@ -26,12 +26,33 @@ The final model's performance is assessed against baseline metrics, including st
 
 # **Repository Navigation:**
 
-**Project Organization:** 
-The repository is organized into folders for data , code and final reports each with clear subfolders and files.
+README.md: Introduction and overview of the project.
+LICENSE: The license governing the project's use.
+CONTRIBUTING.md: Guidelines for contributing to the project.
 
-**Final Notebook:** Link to Final Notebook
+**data:**
+Raw: Original data as obtained from various sources.
+Interim: Intermediate data transformations and preprocessing steps.
+Processed: Cleaned and prepared data ready for analysis.
 
-**Presentation:** Link to Presentation
+**code:**
 
-**Reproduction Instructions:** Detailed instructions for reproducing the analysis can be found here.
+Notebooks: Jupyter or other interactive notebooks for exploratory data analysis and model development.
+Scripts: Python or other scripts for data preprocessing, modeling, and evaluation.
 
+**Models:**
+
+Trained: Serialized models after training.
+Deployed: Scripts or configurations for deploying models to production.
+
+**doc:**
+
+Reports: Final reports or presentations summarizing the project's findings and results.
+Docs: Additional documentation such as data dictionaries, methodology explanations, and user guides.
+
+
+Requirements.txt or environment.yml: Specifications for the project's dependencies.
+Dockerfile: Configuration for creating a Docker container with the project environment.
+Utilities:
+
+Helper functions or modules used across the project for common tasks like data loading, preprocessing, and evaluation.

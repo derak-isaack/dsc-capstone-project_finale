@@ -28,6 +28,5 @@ merged_sentiments = pd.concat([sentiment_balozi,
                                sentiment_smirnoff,
                                sentiment_TuskerLite,
                                sentiment_TPF,
-                               sentiment_waragi], 
-                               ignore_index=True)
+                               sentiment_waragi], ignore_index=True)
 merged_sentiments.to_csv("merged_sentiments.csv", index=False)

@@ -14,6 +14,11 @@ sentiment_smirnoff = pd.read_csv('Sentiments/Smirnoff_sentiments.csv')
 sentiment_TuskerLite = pd.read_csv('Sentiments/Tusker_Lite_sentiments.csv')
 sentiment_TPF = pd.read_csv('Sentiments/TuskerProjectFame_sentiments.csv')
 sentiment_waragi = pd.read_csv('Sentiments/Waragi_sentiments.csv')
+sentiment_oktobafest = pd.read_csv('Sentiments/TuskerOktoberFest2019_sentiments.csv')
+sentiment_oktobafest2 = pd.read_csv('Sentiments/TuskerOktoberFest2022_sentiments.csv')
+sentiment_oktobafest3 = pd.read_csv('Sentiments/TuskerOktoberFest2023_sentiments.csv')
+sentiment_EABLUG = pd.read_csv('Sentiments/EABL2023_UG_sentiments.csv')
+sentiment_EABLUG2 = pd.read_csv('Sentiments/EABL2019_UG_sentiments.csv')
 
 merged_sentiments = pd.concat([sentiment_balozi, 
                                sentiment_guiness, 
@@ -28,6 +33,11 @@ merged_sentiments = pd.concat([sentiment_balozi,
                                sentiment_smirnoff,
                                sentiment_TuskerLite,
                                sentiment_TPF,
-                               sentiment_waragi], 
+                               sentiment_waragi, 
+                               sentiment_oktobafest2,
+                               sentiment_oktobafest3,
+                               sentiment_EABLUG,
+                               sentiment_EABLUG2,
+                               sentiment_oktobafest], 
                                ignore_index=True)
 merged_sentiments.to_csv("merged_sentiments.csv", index=False)

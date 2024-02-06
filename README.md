@@ -16,12 +16,14 @@ We utilize internal data sources such as historical stock market data, customer 
 
 **Models Used:** 
 Regression analysis, sentiment analysis, and predictive modeling.
+
 **Performance Evaluation:** 
 The final model's performance is assessed against baseline metrics, including stock price stability index and accuracy of sentiment analysis models.
 
 # **Conclusion:**
 
 **Recommendations:** We recommend utilizing the insights derived from this analysis to inform strategic decisions related to marketing strategies, product development, regulatory compliance, and financial planning.
+
 **Impact:** By leveraging data science techniques, EABL can enhance its ability to navigate market challenges, optimize operational efficiency, and maximize shareholder value.
 
 # **Repository Navigation:**
@@ -33,6 +35,7 @@ The final model's performance is assessed against baseline metrics, including st
 ***CONTRIBUTING.md:*** Guidelines for contributing to the project.
 
 **data:**
+
 Raw: Original data as obtained from various sources.
 
 Interim: Intermediate data transformations and preprocessing steps.

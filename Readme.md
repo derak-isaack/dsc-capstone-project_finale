@@ -6,10 +6,10 @@
 
 =======================================
 
-[![Pandas](https://img.shields.io/pypi/v/seaborn.svg)]
-[![Numpy](https://img.shields.io/pypi/l/seaborn.svg)]
-[![Wordcloud](https://joss.theoj.org/papers/10.21105/joss.03021/status.svg)]
-[![VaderSentiment](https://github.com/mwaskom/seaborn/workflows/CI/badge.svg)]
-[![Mlpfinance](https://codecov.io/gh/mwaskom/seaborn/branch/master/graph/badge.svg)]
+[![Pandas](https://new_pandas_badge_url.svg)]
+[![Numpy](https://new_numpy_badge_url.svg)]
+[![Wordcloud](https://new_wordcloud_badge_url.svg)]
+[![VaderSentiment](https://new_vader_sentiment_badge_url.svg)]
+[![Mlpfinance](https://new_mlpfinance_badge_url.svg)]
 
 East African Breweries Limited (EABL) has a rich history rooted in East Africa's economic and social fabric. Established in 1922, EABL has grown to become a leading beverage company, contributing significantly to the region's economy. Over the years, EABL has built a portfolio of iconic brands, becoming synonymous with quality and innovation in the brewing industry.EABL holds a pivotal role in the East African beverage market, offering a diverse range of alcoholic and non-alcoholic products. Its flagship brands, including Tusker Lager and Guinness, have become household names, reflecting the company's commitment to quality craftsmanship.

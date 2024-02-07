@@ -13,8 +13,8 @@ def get_tweets(name, modes, no):
     return data 
 
 #Scrape EABL Tusker sentiments and store them in  a DataFrame.
-data = pd.DataFrame(get_tweets("tusker project fame until:2013-12-31 since:2006-11-10", "term", 80))
+data = pd.DataFrame(get_tweets("eabl uganda  until:2015-12-31 since:2007-01-01", "term", 75))
 
 data['date'] = pd.to_datetime(data['date'], format="%b %d, %Y · %I:%M %p %Z")
 
-data.to_csv("TuskerProjectFame_sentiments.csv", index=False)
+data.to_csv("EABL2015_UG_sentiments.csv", index=False)

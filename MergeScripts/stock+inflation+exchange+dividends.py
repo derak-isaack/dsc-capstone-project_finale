@@ -23,4 +23,9 @@ df_dividend.rename(columns={"Announced":"Date"}, inplace=True)
 
 #Perform the merge.
 merge_final = pd.merge(df_stock_inflation, df_dividend[['Date','Amount']], on=['Date'], how='left')
-merge_final.to_csv("final_merge.csv")
+df_merge1 = pd.read_csv("Data/Kenya_GDP.csv")
+
+df_merge1['Year'] = df_merge1['Year'].astype('int64')
+
+merge_final2 = pd.merge(merge_final, df_merge1[['Year','Annual GDP growth (%)']],on=['Year'], how='left')
+merge_final2.to_csv("final_merge2.csv")

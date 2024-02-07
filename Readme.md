@@ -6,8 +6,8 @@
 
 =======================================
 
-[![Pandas](https://new_pandas_badge_url.svg)]
-[![Numpy](https://new_numpy_badge_url.svg)]
+[![Pandas](https://img.shields.io/badge/pandas-150458?logo=pandas&logoColor=fff&style=for-the-badge)]
+[![Numpy](https://img.shields.io/badge/NumPy-013243?logo=numpy&logoColor=fff&style=for-the-badge)]
 [![Wordcloud](https://new_wordcloud_badge_url.svg)]
 [![VaderSentiment](https://new_vader_sentiment_badge_url.svg)]
 [![Mlpfinance](https://new_mlpfinance_badge_url.svg)]

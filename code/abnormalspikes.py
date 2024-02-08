@@ -1,33 +1,40 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-class AbnormalVolumeAnalysis:
-    """
-    A class to identify and analyze abnormal trade volumes.
-    """
+class TradeVolumeAnalysis:
     def __init__(self, data):
         self.data = data
-        self.data['Volume_Z_Score'] = (self.data['Volume'] - self.data['Volume'].mean()) / self.data['Volume'].std()
-        
-    def detect_abnormal_volumes(self, threshold=2):
-        """
-        Identify days with abnormal trading volumes based on the z-score threshold.
-        A z-score above the threshold indicates a significant spike in volume.
-        """
-        self.data['Abnormal_Volume'] = self.data['Volume_Z_Score'].abs() >= threshold
-        return self.data[self.data['Abnormal_Volume']]
     
-    def plot_abnormal_volumes(self):
+    def detect_spikes(self, threshold=2):
+        """Identify days with abnormal trade volume spikes.
+        
+        Args:
+            threshold (float): The number of standard deviations from the mean to consider a spike.
+        
+        Returns:
+            DataFrame: A subset of the original DataFrame with only the days of abnormal volume spikes.
         """
-        Visualize trading volumes and highlight days with abnormal volumes.
-        """
-        plt.figure(figsize=(14, 7))
-        plt.bar(self.data['Date'], self.data['Volume'], color='blue', label='Daily Volume')
-        # Highlight abnormal volume days
-        abnormal_days = self.data[self.data['Abnormal_Volume']]
-        plt.scatter(abnormal_days['Date'], abnormal_days['Volume'], color='red', label='Abnormal Volume')
+        self.data['Volume_Mean'] = self.data['Volume'].rolling(window=30).mean()
+        self.data['Volume_Std'] = self.data['Volume'].rolling(window=30).std()
+        self.data['Z_Score'] = (self.data['Volume'] - self.data['Volume_Mean']) / self.data['Volume_Std']
+        
+        # Filter rows where the Z-score is above the threshold
+        spikes = self.data[self.data['Z_Score'] > threshold]
+        return spikes
+    
+    def plot_volume_spikes(self):
+        """Plot the daily trade volume with highlights on days of abnormal spikes."""
+        plt.figure(figsize=(20, 8))
+        plt.plot(self.data['Date'], self.data['Volume'], label='Daily Volume')
+        
+        # Detect spikes
+        spikes = self.detect_spikes()
+        
+        plt.scatter(spikes['Date'], spikes['Volume'], color='red', label='Volume Spikes')
         plt.title('EABL Trade Volume with Abnormal Spikes Highlighted')
         plt.xlabel('Date')
-        plt.ylabel('Volume')
+        plt.ylabel('Trade Volume')
         plt.legend()
         plt.show()
+
+        return spikes

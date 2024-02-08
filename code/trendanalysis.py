@@ -9,15 +9,16 @@ class TrendAnalysis:
     A class to perform trend analysis on stock prices.
     """
     def __init__(self, data):
-        self.data = data
+        self.data = data.copy()
+        self.data['Date'] = pd.to_datetime(self.data['Date'])
         self.data.set_index('Date', inplace=True)
         
-    def decompose_series(self, model='additive', freq='M'):
+    def decompose_series(self, model='additive'):
         """
         Decompose the time series into its trend, seasonal, and residual components.
         """
-        # Assuming 'Close' price for analysis
-        decomposition = seasonal_decompose(self.data['Close'], model=model, period=self._determine_period(freq))
+        # Assuming 'Close' price for analysis and a frequency of 252 trading days per year
+        decomposition = seasonal_decompose(self.data['Close'], model=model, period=252)
         return decomposition
     
     def plot_decomposition(self, decomposition):
@@ -43,14 +44,3 @@ class TrendAnalysis:
         autocorrelation_plot(self.data['Close'])
         plt.title('Autocorrelation of EABL Closing Prices')
         plt.show()
-    
-    def _determine_period(self, freq):
-        """
-        Helper method to determine the period for seasonal decomposition based on frequency.
-        """
-        if freq == 'M':
-            return 12  # Monthly data
-        elif freq == 'Q':
-            return 4  # Quarterly data
-        else:
-            return 52  # Weekly data, as a default

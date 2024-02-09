@@ -26,7 +26,7 @@ class XGBOOST:
         # Select all columns except the 'Target' column as predictors
         predictors = self.train.drop(columns=['Target']).columns.tolist()
         target = 'Target'
-        self.model = XGBClassifier()
+        self.model = XGBClassifier(objective="binary:logistic")
         
         # Drop rows with missing values
         self.train.dropna(inplace=True)

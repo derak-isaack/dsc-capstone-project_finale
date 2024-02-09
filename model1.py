@@ -1,5 +1,5 @@
 import pandas as pd
-from sklearn.tree import DecisionTreeClassifier
+
 from xgboost import XGBClassifier
 from sklearn.metrics import classification_report
 import joblib

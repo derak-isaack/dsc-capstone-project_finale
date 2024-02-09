@@ -2,7 +2,7 @@ import joblib
 import pickle 
 import os    
 import streamlit as st 
-
+from save_model import SaveModel
 import os
 
 import joblib

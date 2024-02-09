@@ -19,10 +19,14 @@ def main():
         text_message = st.date_input("Input forecast time")
         
         if st.button("Predict"):
-            info = model.predict([[text_image, text_message]])
-            predicted_value = info.iloc[0]['y'] 
-            st.success(f"The stock value will increase! {predicted_value}")
-            st.balloons() 
+            input_data = pd.DataFrame({'Date': [text_image], 'Forecast Time': [text_message]})
+            predicted_value = model.predict(input_data)
+            if predicted_value == 1:
+                st.success("The stock value will increase!")
+                st.balloons()
+            else:
+                st.error("The stock value will not increase.")
+                st.warning("Better luck next time!")
             
             
 if __name__ == '__main__':

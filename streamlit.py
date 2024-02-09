@@ -5,11 +5,8 @@ import streamlit as st
 
 import os
 
-script_directory = os.path.dirname(os.path.abspath(__file__))
-model_path = os.path.join(script_directory, 'stock-high-low.pkl')
-model = joblib.load(open(model_path, 'rb'))
-
-
+import joblib
+model = joblib.load('stock-high-low.pkl')
 
 def main():   
     

@@ -8,7 +8,7 @@ import pandas as pd
 import sklearn 
 
 import joblib
-model_path = 'stock-high-low.pkl2.pkl'
+model_path = 'stock-high-low2.pkl'
 model = joblib.load(open(model_path, 'rb'))
 
 def main():   

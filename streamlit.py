@@ -8,7 +8,7 @@ from model1 import XGBOOST
 import sklearn 
 
 import joblib
-model_path = 'stock-high-low2.pkl'
+model_path = 'stock-high-low3.pkl'
 model = joblib.load(open(model_path, 'rb'))
 
 def main():   
@@ -23,7 +23,7 @@ def main():
         
         if st.button("Predict"):
             input_data = pd.DataFrame({'Date': [text_image], 'Forecast Time': [text_message]})
-            predicted_value = model.predict_proba(input_data)
+            predicted_value = model.predict(input_data)
             if predicted_value > 0.5:
                 st.success("The stock value will increase!")
                 st.balloons()

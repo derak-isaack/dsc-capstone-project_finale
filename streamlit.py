@@ -22,8 +22,8 @@ def main():
         
         if st.button("Predict"):
             input_data = pd.DataFrame({'Date': [text_image], 'Forecast Time': [text_message]})
-            predicted_value = model.predict(input_data)
-            if predicted_value == 1:
+            predicted_value = model.predict_proba(input_data)
+            if predicted_value > 0.5:
                 st.success("The stock value will increase!")
                 st.balloons()
             else:

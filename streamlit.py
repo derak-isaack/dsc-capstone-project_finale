@@ -4,9 +4,11 @@ import os
 import streamlit as st 
 from save_model import SaveModel
 import os
+import pandas as pd 
 
 import joblib
-model = joblib.load('stock-high-low.pkl')
+model_path = 'stock-high-low.pkl'
+model = joblib.load(open(model_path, 'rb'))
 
 def main():   
     

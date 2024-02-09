@@ -1,6 +1,5 @@
 import joblib 
-import pickle 
-from model1 import XGBClassifier  
+import pickle   
 import streamlit as st 
 from save_model import SaveModel
 import os

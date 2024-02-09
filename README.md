@@ -46,27 +46,27 @@ The final model's performance is assessed against baseline metrics, including st
 
 **data:**
 
-Raw: Original data as obtained from various sources.
+- Raw: Original data as obtained from various sources.
 
-Interim: Intermediate data transformations and preprocessing steps.
+- Interim: Intermediate data transformations and preprocessing steps.
 
-Processed: Cleaned and prepared data ready for analysis.
+- Processed: Cleaned and prepared data ready for analysis.
 
 **code:**
 
-Notebooks: Jupyter or other interactive notebooks for exploratory data analysis and model development.
+- Notebooks: Jupyter or other interactive notebooks for exploratory data analysis and model development.
 
-Scripts: Python or other scripts for data preprocessing, modeling, and evaluation.
+- Scripts: Python or other scripts for data preprocessing, modeling, and evaluation.
 
 **Models:**
 
-Trained: Serialized models after training.
+- Trained: Serialized models after training.
 
-Deployed: Scripts or configurations for deploying models to production.
+- Deployed: Scripts or configurations for deploying models to production.
 
 **doc:**
 
-Presentations: Presentations summarizing the project's findings and results.
+- Presentations: Presentations summarizing the project's findings and results.
 
-Docs: Additional documentation such as project charter and reports.
+- Docs: Additional documentation such as project charter and reports.
 

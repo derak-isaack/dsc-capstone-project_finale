@@ -6,6 +6,7 @@ from save_model import SaveModel
 import os
 import pandas as pd 
 from model1.py import XGBOOST
+import sklearn 
 
 import joblib
 model_path = 'stock-high-low.pkl'

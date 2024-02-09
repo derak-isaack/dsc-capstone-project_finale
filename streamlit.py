@@ -4,11 +4,11 @@ import streamlit as st
 from save_model import SaveModel
 import os
 import pandas as pd 
-from model1.py import XGBOOST
+# from model1.py import XGBOOST
 import sklearn 
 
 import joblib
-model_path = 'stock-high-low.pkl'
+model_path = 'stock-high-low.pkl2.pkl'
 model = joblib.load(open(model_path, 'rb'))
 
 def main():   

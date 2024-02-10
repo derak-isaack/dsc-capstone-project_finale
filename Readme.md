@@ -13,8 +13,8 @@
 ## Overview
 East African Breweries Limited (EABL) has a rich history rooted in East Africa's economic and social fabric. Established in 1922, EABL has grown to become a leading beverage company, contributing significantly to the region's economy. Over the years, EABL has built a portfolio of iconic brands, becoming synonymous with quality and innovation in the brewing industry.EABL holds a pivotal role in the East African beverage market, offering a diverse range of alcoholic and non-alcoholic products. Its flagship brands, including Tusker Lager and Guinness, have become household names, reflecting the company's commitment to quality craftsmanship.
 
-## Installation and Setup
-### Code and Resources Used
+## Resources
+### IDE, Language, Files
  - Editors: Jupyter Notebook, VSCode, Google Colab (https://colab.research.google.com/)
 -  Python version: Python 3.9
 -  Code: main.ipynb, streamlit.py

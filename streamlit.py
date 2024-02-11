@@ -16,10 +16,10 @@ def main():
     st.title(" EABL Stock Movement Predictor".upper())
     
     info = ''
-    opening_price = st.number_input("Enter Last opening price") 
-    closing_price = st.number_input("Enter Last closing price")
-    high_price = st.number_input("Enter Last High price")
-    average_price = st.number_input("Enter Last Average price")
+    # opening_price = st.number_input("Enter Last opening price") 
+    # closing_price = st.number_input("Enter Last closing price")
+    # high_price = st.number_input("Enter Last High price")
+    # average_price = st.number_input("Enter Last Average price")
 
     # Dropdowns for selecting economic indicators
     selected_indicators = st.multiselect("Select economic indicators", economic_indicators)
@@ -27,6 +27,10 @@ def main():
     with st.expander("Check whether a stock will increase or not"):
         text_image = st.date_input("Input the date")
         text_message = st.date_input("Input forecast time")
+        opening_price = st.number_input("Enter Last opening price") 
+        closing_price = st.number_input("Enter Last closing price")
+        high_price = st.number_input("Enter Last High price")
+        average_price = st.number_input("Enter Last Average price")
         
         if st.button("Predict"):
             input_data = pd.DataFrame({'Date': [text_image], 'Forecast Time': [text_message]})

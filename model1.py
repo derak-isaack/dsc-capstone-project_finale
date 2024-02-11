@@ -10,6 +10,9 @@ import matplotlib.pyplot as plt
 
 df = pd.read_csv('StockLogistic.csv')
 # df.drop(columns=['Unnamed: 0','Month'], inplace=True) 
+df.dropna(inplace=True)
+df['Date'] = pd.to_datetime(df['Date'])
+df = df.set_index('Date')
 
 from xgboost import plot_importance
 
@@ -18,25 +21,25 @@ from xgboost import plot_importance
 class XBoostTuned:
     def __init__(self, data):
         self.data = data
-        self.date_convert()
+        # self.date_convert()
         self.split_data()
         self.train_baseline()
         
         # Convert the date column and set it as index.
-    def date_convert(self):
-        self.data['Date'] = pd.to_datetime(self.data['Date'])
-        self.data = self.data.set_index('Date')
+    # def date_convert(self):
+    #     self.data['Date'] = pd.to_datetime(self.data['Date'])
+    #     self.data = self.data.set_index('Date')
         
-    def fill_missing(self):
-         self.data['Mean'].fillna(method='ffill', inplace=True)
-         self.data[['Dividends per share','Earnings Per Share']] = self.data[['Dividends per share','Earnings Per Share']].fillna(method='bfill')
+    # def fill_missing(self):
+    #      self.data['Mean'].fillna(method='ffill', inplace=True)
+    #      self.data[['Dividends per share','Earnings Per Share']] = self.data[['Dividends per share','Earnings Per Share']].fillna(method='bfill')
          
     # Split the data.
     def split_data(self):
-        train_size = int(len(self.data) * 0.8)
-        self.train = self.data.iloc[:train_size]
-        self.test = self.data.iloc[train_size:]
-        #Train the model
+        train_size = 3400
+        self.train = self.data[:train_size]
+        self.test = self.data[train_size:]
+        #Train the model    
     def train_baseline(self):
         target = ['Target','Target1','Target2','Target3']
         self.model = MultiOutputClassifier(XGBClassifier(learning_rate=0.2, n_estimators=300, max_depth=4))
@@ -68,7 +71,7 @@ class SaveModel(XBoostTuned):
 
 # Example usage:
 boost_model = XBoostTuned(df)
-boost_model.date_convert()
+# boost_model.date_convert()
 boost_model.split_data()
 boost_model.train_baseline()
 accuracy = boost_model.evaluate()

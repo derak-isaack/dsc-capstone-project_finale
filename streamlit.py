@@ -8,7 +8,7 @@ from model1 import XBoostTuned
 import sklearn 
 
 import joblib
-model_path = 'stock-increement.pkl'
+model_path = 'stock-increement2.pkl'
 model = joblib.load(open(model_path, 'rb'))
 economic_indicators = ['Open','Close','High','Average']
 def main():   

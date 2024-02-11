@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np 
 from xgboost import XGBRegressor, XGBClassifier
+import xgboost as xgb   
 from sklearn.metrics import classification_report
 import joblib
 from sklearn.model_selection import train_test_split
@@ -9,6 +10,7 @@ from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error
 from sklearn.linear_model import LinearRegression 
 import matplotlib.pyplot as plt
 from sklearn.model_selection import TimeSeriesSplit
+from catboost import CatBoostClassifier
 
 df = pd.read_csv('StockLogistic.csv')
 # df.drop(columns=['Unnamed: 0','Month'], inplace=True) 
@@ -48,81 +50,30 @@ class XBoostTuned:
         #Train the model    
     def train_baseline(self):
         target = ['Target','Target1','Target2','Target3']
-        self.model = MultiOutputClassifier(XGBClassifier(learning_rate=0.2, n_estimators=300, max_depth=4))
-        
-        # Train the best model
-        # self.model.fit(self.train.drop(columns=target), self.train[target])
-        train_x = self.train.drop(columns=target).values  # Convert train features to numpy array
-        train_y = self.train[target].values  # Convert train targets to numpy array
-        
-        self.model.fit(train_x, train_y)
-        
-    # def predict_classes(self):
-    #     target = ['Target','Target1','Target2','Target3']
-    #     test_x = self.test.drop(columns=target).values 
-    #     preds = []
-        
-    #     for tgt in target:
-    #     #     pred = self.model.predict(self.test.drop(columns=[tgt]))
-    #     #     preds.append(pred)
-    #     # return preds 
-    #         if tgt in self.test.columns:  # Check if the target column is present in the test data
-    #             pred = self.model.predict(test_x)  # Drop only the current target column
-    #             preds.append(pred)
-    def train_baseline(self):
-        target = ['Target','Target1','Target2','Target3']
-        self.model = MultiOutputClassifier(XGBClassifier(learning_rate=0.2, n_estimators=300, max_depth=4))
-        
-        train_features = self.train.drop(columns=target).values
-        train_targets = self.train[target].values
-        
-        self.model.fit(train_features, train_targets)
+        features = self.train.drop(columns=target).values
+        target = self.train[target].values
+        self.model = xgb.XGBClassifier(iterations=100, learning_rate=0.1, depth=3)
+        self.model.fit(features, target)
     
-    # def predict(self, input_data):
-    #     # Preprocess input_data if necessary
-    #     # Make predictions using the underlying model
-    #     predictions = self.model.predict(input_data)
-    #     return predictions
     def predict(self, input_data):
-        predictions = []
-        for estimator in self.model.estimators_:
-            pred = estimator.predict(input_data)
-            predictions.append(pred)
+        predictions = self.model.predict(input_data)
         return predictions
-        # return preds
-    # Evaluate the model.
     
-    # def evaluate(self):
-    #     target = ['Target','Target1','Target2','Target3']
-    #     test_features = self.test.drop(columns=target).values
-    #     preds = self.predict(test_features)
-    #     actual = self.test[target]
-    #     acc = classification_report(actual, preds)
-    #     return acc
     def evaluate(self):
         target = ['Target','Target1','Target2','Target3']
         test_features = self.test.drop(columns=target).values
         preds = self.predict(test_features)
         actual = self.test[target]
-        
-        # Flatten the actual and predicted arrays
-        reports = []
-        for i, target_col in enumerate(target):
-            # Compute the classification report for the current target variable
-            report = classification_report(actual[target_col], preds[i])
-            reports.append(report)
-        
-        return reports
+        acc = classification_report(actual, preds)
+        return acc
     
-
-    # Plot the features. 
     def plot_feature_importance(self):
         plot_importance(self.model.estimators_[0])
         plt.title('Factors influencing stock price hikes')
         plt.show()
 
 #Save the model in a pickle file. 
-    def save_model(model, model_path='stock-increement.pkl'):
+    def save_model(model, model_path='stock-increement2.pkl'):
          joblib.dump(model, open(model_path, 'wb'))
 
 

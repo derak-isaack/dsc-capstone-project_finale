@@ -72,9 +72,10 @@ class XBoostTuned:
         plt.title('Factors influencing stock price hikes')
         plt.show()
 
-#Save the model in a pickle file. 
+#Save the model in a pickle file.
+    @staticmethod 
     def save_model(model, model_path='stock-increement2.pkl'):
-         joblib.dump(model, open(model_path, 'wb'))
+         joblib.dump(model, model_path)
 
 
 # Example usage:
@@ -84,7 +85,7 @@ boost_model.split_data()
 boost_model.train_baseline()
 accuracy = boost_model.evaluate()
 print(accuracy)
-boost_model.save_model()
+boost_model.save_model(boost_model.model)
 
 
 

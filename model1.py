@@ -10,7 +10,7 @@ from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error
 from sklearn.linear_model import LinearRegression 
 import matplotlib.pyplot as plt
 from sklearn.model_selection import TimeSeriesSplit
-from catboost import CatBoostClassifier
+# from catboost import CatBoostClassifier
 
 df = pd.read_csv('StockLogistic.csv')
 # df.drop(columns=['Unnamed: 0','Month'], inplace=True) 

@@ -7,12 +7,14 @@ from sklearn.multioutput import MultiOutputRegressor, MultiOutputClassifier
 from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error
 from sklearn.linear_model import LinearRegression 
 import matplotlib.pyplot as plt
+from sklearn.model_selection import TimeSeriesSplit
 
 df = pd.read_csv('StockLogistic.csv')
 # df.drop(columns=['Unnamed: 0','Month'], inplace=True) 
 df.dropna(inplace=True)
 df['Date'] = pd.to_datetime(df['Date'])
 df = df.set_index('Date')
+df.drop(columns=['Unnamed: 0','Month','Year'], inplace=True)
 
 from xgboost import plot_importance
 
@@ -35,10 +37,27 @@ class XBoostTuned:
     #      self.data[['Dividends per share','Earnings Per Share']] = self.data[['Dividends per share','Earnings Per Share']].fillna(method='bfill')
          
     # Split the data.
+    # def split_data(self):
+    #     train_size = 3400
+    #     self.train = self.data[:train_size]
+    #     self.test = self.data[train_size:]
     def split_data(self):
-        train_size = 3400
-        self.train = self.data[:train_size]
-        self.test = self.data[train_size:]
+        tscv = TimeSeriesSplit(n_splits=3)  # Define the number of splits
+        
+        # Initialize train and test lists
+        train_indices = []
+        test_indices = []
+        
+        for train_index, test_index in tscv.split(self.data):
+            train_indices.append(train_index)
+            test_indices.append(test_index)
+        
+        # Concatenate train and test data
+        train_indices = [idx for split in train_indices for idx in split]
+        test_indices = [idx for split in test_indices for idx in split]
+        
+        self.train = self.data.iloc[train_indices]
+        self.test = self.data.iloc[test_indices]
         #Train the model    
     def train_baseline(self):
         target = ['Target','Target1','Target2','Target3']
@@ -64,9 +83,9 @@ class XBoostTuned:
         plt.title('Factors influencing stock price hikes')
         plt.show()
 
-class SaveModel(XBoostTuned):
+#Save the model in a pickle file. 
     def save_model(model, model_path='stock-increement.pkl'):
-        joblib.dump(model, open(model_path, 'wb'))
+         joblib.dump(model, open(model_path, 'wb'))
 
 
 # Example usage:
@@ -76,73 +95,7 @@ boost_model.split_data()
 boost_model.train_baseline()
 accuracy = boost_model.evaluate()
 print(accuracy)
-pipeline_xgboost2 = SaveModel(boost_model)
-pipeline_xgboost2.save_model() 
+boost_model.save_model()
 
-# df.drop(columns=['Unnamed: 0','Year'], inplace=True) 
-# df['Tommorow'] = df['Close'].shift(-1)
-# df['Target'] = (df['Tommorow'] > df['Close']).astype(int)
-# class XGBOOST:
-#     def __init__(self, data):
-#          self.data = data
-    
-#     # Set the date as the index.  
-#     def date_convert(self):
-#          self.data['Date'] = pd.to_datetime(self.data['Date'])
-#          self.data = self.data.set_index('Date')
-        
-     
-#     # Drop ro ws with missing values
-#     def fill_missing(self):
-#         self.data['Mean'].fillna(method='ffill', inplace=True)
-#         self.data[['Dividends per share','Earnings Per Share']] = self.data[['Dividends per share','Earnings Per Share']].fillna(method='bfill')
-    
-#     # Split data using the TrainTestSplit. 
-#     def split_data(self):
-#         self.X = self.data.drop(columns=['Close','High','Low','Open'], axis=1)
-#         self.y = self.data[['High', 'Low', 'Close','Open']]
-#         self.X_train, self.X_test, self.y_train, self.y_test,  = train_test_split(self.X, self.y, random_state=42, test_size=0.25)
-    
-#     #Fit the model on te mltioutput regressor.                                                                                                           
-#     def fit(self):
-#         self.model = MultiOutputRegressor(LinearRegression())
-#         self.model.fit(self.X_train, self.y_train)
-    
-#     # Generate predictions for the test set.    
-#     def predict(self):
-#         preds = self.model.predict(self.X_test) 
-#         return preds
-    
-    # Calculate diffreence between predicted and actual values. 
-#     def difference_outputs(self):
-#         preds = self.predict()
-#         self.y_test['High'] = self.y_test['High'] - preds[:, 0]
-#         self.y_test['Low'] = self.y_test['Low'] - preds[:, 1]
-#         self.y_test['Close'] = self.y_test['Close'] - preds[:, 2]
-#         self.y_test['Open'] = self.y_test['Open'] - preds[:, 3]
-#         return self.y_test
-    
-#     # Evaluate the model. 
-#     def score(self):
-#         y_pred = self.predict()
-#         r2_scores = r2_score(self.y_test, y_pred, multioutput='uniform_average')
-#         mse = mean_squared_error(self.y_test, y_pred, multioutput='uniform_average')
-#         return r2_scores, mse
-
-# # Save the model.  
-# class SaveModel(XGBOOST):
-#      def save_model(model, model_path='stock-high-low2.pkl'):
-#          joblib.dump(model, open(model_path, 'wb'))
-
-
-# # Example usage:
-# boost_model = XGBOOST(df)
-# boost_model.date_convert()
-# boost_model.split_data()
-# boost_model.train_tree()
-# accuracy = boost_model.evaluate()
-# print(accuracy)
-# pipeline_xgboost2 = SaveModel(boost_model)
-# pipeline_xgboost2.save_model() 
 
 

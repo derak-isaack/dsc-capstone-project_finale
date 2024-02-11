@@ -8,16 +8,18 @@ from model1 import XBoostTuned
 import sklearn 
 
 import joblib
-model_path = 'stock-high-low3.pkl'
+model_path = 'stock-increement.pkl'
 model = joblib.load(open(model_path, 'rb'))
-economic_indicators = ['Inflation Rate', 'Exchange Rate', 'Unemployment Rate']
+economic_indicators = ['Open','Close','High','Average']
 def main():   
     
     st.title(" EABL Stock Movement Predictor".upper())
     
     info = ''
-    dividends_payout = st.number_input("Enter dividends payout")
-    earnings_per_share = st.number_input("Enter earnings per share")
+    opening_price = st.number_input("Enter Last opening price") 
+    closing_price = st.number_input("Enter Last closing price")
+    high_price = st.number_input("Enter Last High price")
+    average_price = st.number_input("Enter Last Average price")
 
     # Dropdowns for selecting economic indicators
     selected_indicators = st.multiselect("Select economic indicators", economic_indicators)
@@ -31,8 +33,10 @@ def main():
             input_data = pd.DataFrame({
             'Date': [text_image], 
             'Forecast Time': [text_message],
-            'Dividends Payout': [dividends_payout],
-            'Earnings Per Share': [earnings_per_share]
+            'Open': [opening_price],
+            'Close': [closing_price],
+            'High': [high_price], 
+            'Average': [average_price]
         })
             for indicator in selected_indicators:
                 indicator_value = st.number_input(f"Enter {indicator}")

@@ -42,9 +42,9 @@ def main():
             'High': [high_price], 
             'Average': [average_price]
     })
-    # for indicator in selected_indicators:
-    #     indicator_value = st.number_input(f"Enter {indicator}")
-    #     input_data[indicator] = indicator_value
+    for indicator in selected_indicators:
+        indicator_value = st.number_input(f"Enter {indicator}")
+        input_data[indicator] = indicator_value
 
     # predicted_values = model.predict(input_data)
     

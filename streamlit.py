@@ -31,12 +31,12 @@ def main():
         if st.button("Predict"):
             input_data = pd.DataFrame({'Date': [text_image], 'Forecast Time': [text_message]})
             input_data = pd.DataFrame({
-                'Date': [text_image], 
-                'Forecast Time': [text_message],
-                'Open': [opening_price],
-                'Close': [closing_price],
-                'High': [high_price], 
-                'Average': [average_price]
+            'Date': [text_image], 
+            'Forecast Time': [text_message],
+            'Open': [opening_price],
+            'Close': [closing_price],
+            'High': [high_price], 
+            'Average': [average_price]
     })
     for indicator in selected_indicators:
         indicator_value = st.number_input(f"Enter {indicator}")
@@ -60,30 +60,62 @@ def main():
         st.warning("Better luck next time!")
 
         
-        # if st.button("Predict"):
-        #     input_data = pd.DataFrame({'Date': [text_image], 'Forecast Time': [text_message]})
-        #     input_data = pd.DataFrame({
-        #     'Date': [text_image], 
-        #     'Forecast Time': [text_message],
-        #     'Open': [opening_price],
-        #     'Close': [closing_price],
-        #     'High': [high_price], 
-        #     'Average': [average_price]
-        # })
-        #     for indicator in selected_indicators:
-        #         indicator_value = st.number_input(f"Enter {indicator}")
-        #         input_data[indicator] = indicator_value
+#         if st.button("Predict"):
+#             input_data = pd.DataFrame({'Date': [text_image], 'Forecast Time': [text_message]})
+#             input_data = pd.DataFrame({
+#                 'Date': [text_image], 
+#                 'Forecast Time': [text_message],
+#                 'Open': [opening_price],
+#                 'Close': [closing_price],
+#                 'High': [high_price], 
+#                 'Average': [average_price]
+#     })
+#     for indicator in selected_indicators:
+#         indicator_value = st.number_input(f"Enter {indicator}")
+#         input_data[indicator] = indicator_value
 
-        #     predicted_value = model.predict(input_data)
-        #     if predicted_value == 1:
-        #         st.success("The stock value will increase!")
-        #         st.balloons()
-        #     else:
-        #         st.error("The stock value will not increase.")
-        #         st.warning("Better luck next time!")
+#     predicted_values = model.predict(input_data)
+    
+#     st.write("Predicted values for all three classes:")
+#     st.write(predicted_values)
+    
+#     # Display prediction for each class
+#     for i, target_class in enumerate(['Target', 'Target1', 'Target2', 'Target3']):
+#         st.write(f"Predicted value for {target_class}: {predicted_values[i]}")
+    
+#     # Check if any of the classes predict an increase
+#     if 1 in predicted_values:
+#         st.success("At least one class predicts an increase!")
+#         st.balloons()
+#     else:
+#         st.error("None of the classes predict an increase.")
+#         st.warning("Better luck next time!")
+
+        
+#         # if st.button("Predict"):
+#         #     input_data = pd.DataFrame({'Date': [text_image], 'Forecast Time': [text_message]})
+#         #     input_data = pd.DataFrame({
+#         #     'Date': [text_image], 
+#         #     'Forecast Time': [text_message],
+#         #     'Open': [opening_price],
+#         #     'Close': [closing_price],
+#         #     'High': [high_price], 
+#         #     'Average': [average_price]
+#         # })
+#         #     for indicator in selected_indicators:
+#         #         indicator_value = st.number_input(f"Enter {indicator}")
+#         #         input_data[indicator] = indicator_value
+
+#         #     predicted_value = model.predict(input_data)
+#         #     if predicted_value == 1:
+#         #         st.success("The stock value will increase!")
+#         #         st.balloons()
+#         #     else:
+#         #         st.error("The stock value will not increase.")
+#         #         st.warning("Better luck next time!")
             
             
-if __name__ == '__main__':
-    main() 
+# if __name__ == '__main__':
+#     main() 
         
         

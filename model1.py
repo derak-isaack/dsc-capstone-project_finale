@@ -78,26 +78,42 @@ class XBoostTuned:
         
         self.model.fit(train_features, train_targets)
     
+    # def predict(self, input_data):
+    #     # Preprocess input_data if necessary
+    #     # Make predictions using the underlying model
+    #     predictions = self.model.predict(input_data)
+    #     return predictions
     def predict(self, input_data):
-        # Preprocess input_data if necessary
-        # Make predictions using the underlying model
-        predictions = self.model.predict(input_data)
+        predictions = []
+        for estimator in self.model.estimators_:
+            pred = estimator.predict(input_data)
+            predictions.append(pred)
         return predictions
         # return preds
     # Evaluate the model.
+    
     # def evaluate(self):
     #     target = ['Target','Target1','Target2','Target3']
-    #     probs = self.predict_classes()
-    #     actual = self.test[target] 
-    #     acc = classification_report(actual, probs)
-    #     return acc 
+    #     test_features = self.test.drop(columns=target).values
+    #     preds = self.predict(test_features)
+    #     actual = self.test[target]
+    #     acc = classification_report(actual, preds)
+    #     return acc
     def evaluate(self):
         target = ['Target','Target1','Target2','Target3']
         test_features = self.test.drop(columns=target).values
         preds = self.predict(test_features)
         actual = self.test[target]
-        acc = classification_report(actual, preds)
-        return acc
+        
+        # Flatten the actual and predicted arrays
+        reports = []
+        for i, target_col in enumerate(target):
+            # Compute the classification report for the current target variable
+            report = classification_report(actual[target_col], preds[i])
+            reports.append(report)
+        
+        return reports
+    
 
     # Plot the features. 
     def plot_feature_importance(self):

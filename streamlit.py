@@ -10,7 +10,7 @@ import sklearn
 import joblib
 model_path = 'stock-increement3.pkl'
 model = joblib.load(open(model_path, 'rb'))
-economic_indicators = ['Open','Close','High','Average']
+stock_indicators = ['Open','Close','High','Average']
 def main():   
     
     st.title(" EABL Stock Movement Predictor".upper())
@@ -22,26 +22,39 @@ def main():
     # average_price = st.number_input("Enter Last Average price")
 
     # Dropdowns for selecting economic indicators
-    selected_indicators = st.multiselect("Select economic indicators", economic_indicators)
+    selected_indicators = st.multiselect("Select economic indicators", stock_indicators)
     
     with st.expander("Check whether a stock will increase or not"):
-        text_image = st.date_input("Input the date")
-        text_message = st.date_input("Input forecast time")
+        # text_image = st.date_input("Input the date")
+        # text_message = st.date_input("Input forecast time")
         opening_price = st.number_input("Enter Last opening price") 
         closing_price = st.number_input("Enter Last closing price")
         high_price = st.number_input("Enter Last High price")
         average_price = st.number_input("Enter Last Average price")
         
         
+        dividends_per_share = 5.5
+        earnings_per_share = 10
+        unemployment_rates = 3.7
+        exchange_rates = 167
+        interest_rates = 12.5
+        dividends_announced = 1
+        
         if st.button("Predict"):
-            input_data = pd.DataFrame({'Date': [text_image], 'Forecast Time': [text_message]})
+            # input_data = pd.DataFrame({'Date': [text_image], 'Forecast Time': [text_message]})
             input_data = pd.DataFrame({
-            'Date': [text_image], 
-            'Forecast Time': [text_message],
+            # 'Date': [text_image], 
+            # 'Forecast Time': [text_message],
             'Open': [opening_price],
             'Close': [closing_price],
             'High': [high_price], 
-            'Average': [average_price]
+            'Average': [average_price],
+            'Dividends per share': [dividends_per_share],
+            'Earnings per share': [earnings_per_share],
+            'Unemployment': [unemployment_rates],
+            'Mean': [exchange_rates],
+            'Interest rates': [interest_rates],
+            'Amount': [dividends_announced]
     })
             
             

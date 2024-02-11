@@ -32,6 +32,7 @@ def main():
         high_price = st.number_input("Enter Last High price")
         average_price = st.number_input("Enter Last Average price")
         
+        
         if st.button("Predict"):
             input_data = pd.DataFrame({'Date': [text_image], 'Forecast Time': [text_message]})
             input_data = pd.DataFrame({
@@ -42,47 +43,34 @@ def main():
             'High': [high_price], 
             'Average': [average_price]
     })
-    for indicator in selected_indicators:
-        indicator_value = st.number_input(f"Enter {indicator}")
-        input_data[indicator] = indicator_value
-
-    # predicted_values = model.predict(input_data)
-    
-    # st.write("Predicted values for all three classes:")
-    # st.write(predicted_values)
-    
-    # # Display prediction for each class
-    # for i, target_class in enumerate(['Target', 'Target1', 'Target2', 'Target3']):
-    #     st.write(f"Predicted value for {target_class}: {predicted_values[i]}")
-    
-    # # Check if any of the classes predict an increase
-    # if 1 in predicted_values:
-    #     st.success("At least one class predicts an increase!")
-    #     st.balloons()
-    # else:
-    #     st.error("None of the classes predict an increase.")
-    #     st.warning("Better luck next time!")
-    predicted_probabilities = model.predict_proba(input_data)
+            
+            
+            for indicator in selected_indicators:
+                indicator_value = st.number_input(f"Enter {indicator}")
+                input_data[indicator] = indicator_value
+                
+                
+                predicted_probabilities = model.predict_proba(input_data)
 
         # Convert probabilities to binary predictions using a threshold
-    threshold = 0.8
-    predicted_values = (predicted_probabilities >= threshold).astype(int)
+                threshold = 0.8
+                predicted_values = (predicted_probabilities >= threshold).astype(int)
 
         # Display predictions
-    st.write("Predicted values for all three classes:")
-    st.write(predicted_values)
+                st.write("Predicted values for all three classes:")
+                st.write(predicted_values)
 
-        # Display prediction for each class
-    for i, target_class in enumerate(['Target', 'Target1', 'Target2', 'Target3']):
-        st.write(f"Predicted value for {target_class}: {predicted_values[i]}")
+                    # Display prediction for each class
+                for i, target_class in enumerate(['Target', 'Target1', 'Target2', 'Target3']):
+                    st.write(f"Predicted value for {target_class}: {predicted_values[i]}")
 
-        # Check if any of the classes predict an increase
-        if 1 in predicted_values:
-            st.success("At least one class predicts an increase!")
-            st.balloons()
-        else:
-            st.error("None of the classes predict an increase.")
-            st.warning("Better luck next time!")
+                    # Check if any of the classes predict an increase
+                    if 1 in predicted_values:
+                        st.success("At least one class predicts an increase!")
+                        st.balloons()
+                    else:
+                        st.error("None of the classes predict an increase.")
+                        st.warning("Better luck next time!")
 
 if __name__ == '__main__':
     main()

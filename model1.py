@@ -1,69 +1,76 @@
 import pandas as pd
-from xgboost import XGBRegressor
+from xgboost import XGBRegressor, XGBClassifier
 from sklearn.metrics import classification_report
 import joblib
 from sklearn.model_selection import train_test_split
-from sklearn.multioutput import MultiOutputRegressor
+from sklearn.multioutput import MultiOutputRegressor, MultiOutputClassifier
 from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error
 from sklearn.linear_model import LinearRegression 
+import matplotlib.pyplot as plt
 
-df = pd.read_csv('MergedData/final_merge.csv')
-df.drop(columns=['Unnamed: 0','Year'], inplace=True) 
-df['Tommorow'] = df['Close'].shift(-1)
-df['Target'] = (df['Tommorow'] > df['Close']).astype(int)
-class XGBOOST:
+df = pd.read_csv('StockLogistic.csv')
+# df.drop(columns=['Unnamed: 0','Month'], inplace=True) 
+
+from xgboost import plot_importance
+
+
+# Create second class with tuned parameters. 
+class XBoostTuned:
     def __init__(self, data):
         self.data = data
+        self.date_convert()
+        self.split_data()
+        self.train_baseline()
         
+        # Convert the date column and set it as index.
     def date_convert(self):
         self.data['Date'] = pd.to_datetime(self.data['Date'])
         self.data = self.data.set_index('Date')
         
+    def fill_missing(self):
+         self.data['Mean'].fillna(method='ffill', inplace=True)
+         self.data[['Dividends per share','Earnings Per Share']] = self.data[['Dividends per share','Earnings Per Share']].fillna(method='bfill')
+         
+    # Split the data.
     def split_data(self):
         train_size = int(len(self.data) * 0.8)
-        train_data = self.data.iloc[:train_size]
-        test_data = self.data.iloc[train_size:]
-        self.train = train_data
-        self.test = test_data
+        self.train = self.data.iloc[:train_size]
+        self.test = self.data.iloc[train_size:]
+        #Train the model
+    def train_baseline(self):
+        target = ['Target','Target1','Target2','Target3']
+        self.model = MultiOutputClassifier(XGBClassifier(learning_rate=0.2, n_estimators=300, max_depth=4))
         
-    def train_tree(self):
-        # Select all columns except the 'Target' column as predictors
-        predictors = self.train.drop(columns=['Target']).columns.tolist()
-        target = 'Target'
-        self.model = XGBClassifier(objective="binary:logistic")
+        # Train the best model
+        self.model.fit(self.train.drop(columns=target), self.train[target])
         
-        # Drop rows with missing values
-        self.train.dropna(inplace=True)
-        
-        self.model.fit(self.train[predictors], self.train[target])
-        return predictors 
-    
-    def predict_probabilities(self):
-        # Use the same predictors used during training
-        predictors = self.train.drop(columns=['Target']).columns.tolist()
-        
-        # Drop rows with missing values
-        self.test.dropna(inplace=True)
-        
-        probs = self.model.predict_proba(self.test[predictors])[:, 1]
+    def predict_classes(self):
+        target = ['Target','Target1','Target2','Target3'] 
+        probs = self.model.predict(self.test.drop(columns=target))
         return probs 
-    
-    def evaluate(self, threshold=0.5):
-        probs = self.predict_probabilities()
-        preds = (probs >= threshold).astype(int)  
-        actual = self.test['Target']  
-        acc = classification_report(actual, preds)
+    # Evaluate the model.
+    def evaluate(self):
+        target = ['Target','Target1','Target2','Target3']
+        probs = self.predict_classes()
+        actual = self.test[target] 
+        acc = classification_report(actual, probs)
         return acc 
-class SaveModel(XGBOOST):
-    def save_model(model, model_path='stock-high-low2.pkl'):
+    # Plot the features. 
+    def plot_feature_importance(self):
+        plot_importance(self.model.estimators_[0])
+        plt.title('Factors influencing stock price hikes')
+        plt.show()
+
+class SaveModel(XBoostTuned):
+    def save_model(model, model_path='stock-increement.pkl'):
         joblib.dump(model, open(model_path, 'wb'))
 
 
 # Example usage:
-boost_model = XGBOOST(df)
+boost_model = XBoostTuned(df)
 boost_model.date_convert()
 boost_model.split_data()
-boost_model.train_tree()
+boost_model.train_baseline()
 accuracy = boost_model.evaluate()
 print(accuracy)
 pipeline_xgboost2 = SaveModel(boost_model)

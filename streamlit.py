@@ -8,7 +8,7 @@ from model1 import XBoostTuned
 import sklearn 
 
 import joblib
-model_path = 'stock-increement2.pkl'
+model_path = 'stock-increement3.pkl'
 model = joblib.load(open(model_path, 'rb'))
 economic_indicators = ['Open','Close','High','Average']
 def main():   
@@ -42,26 +42,50 @@ def main():
             'High': [high_price], 
             'Average': [average_price]
     })
-    for indicator in selected_indicators:
-        indicator_value = st.number_input(f"Enter {indicator}")
-        input_data[indicator] = indicator_value
+    # for indicator in selected_indicators:
+    #     indicator_value = st.number_input(f"Enter {indicator}")
+    #     input_data[indicator] = indicator_value
 
-    predicted_values = model.predict(input_data)
+    # predicted_values = model.predict(input_data)
     
+    # st.write("Predicted values for all three classes:")
+    # st.write(predicted_values)
+    
+    # # Display prediction for each class
+    # for i, target_class in enumerate(['Target', 'Target1', 'Target2', 'Target3']):
+    #     st.write(f"Predicted value for {target_class}: {predicted_values[i]}")
+    
+    # # Check if any of the classes predict an increase
+    # if 1 in predicted_values:
+    #     st.success("At least one class predicts an increase!")
+    #     st.balloons()
+    # else:
+    #     st.error("None of the classes predict an increase.")
+    #     st.warning("Better luck next time!")
+    predicted_probabilities = model.predict_proba(input_data)
+
+        # Convert probabilities to binary predictions using a threshold
+    threshold = 0.8
+    predicted_values = (predicted_probabilities >= threshold).astype(int)
+
+        # Display predictions
     st.write("Predicted values for all three classes:")
     st.write(predicted_values)
-    
-    # Display prediction for each class
+
+        # Display prediction for each class
     for i, target_class in enumerate(['Target', 'Target1', 'Target2', 'Target3']):
         st.write(f"Predicted value for {target_class}: {predicted_values[i]}")
-    
-    # Check if any of the classes predict an increase
-    if 1 in predicted_values:
-        st.success("At least one class predicts an increase!")
-        st.balloons()
-    else:
-        st.error("None of the classes predict an increase.")
-        st.warning("Better luck next time!")
+
+        # Check if any of the classes predict an increase
+        if 1 in predicted_values:
+            st.success("At least one class predicts an increase!")
+            st.balloons()
+        else:
+            st.error("None of the classes predict an increase.")
+            st.warning("Better luck next time!")
+
+if __name__ == '__main__':
+    main()
 
         
 #         if st.button("Predict"):

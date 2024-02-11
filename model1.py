@@ -55,15 +55,26 @@ class XBoostTuned:
         self.model = xgb.XGBClassifier(iterations=100, learning_rate=0.1, depth=3)
         self.model.fit(features, target)
     
-    def predict(self, input_data):
-        predictions = self.model.predict(input_data)
-        return predictions
+    def class_probabilities(self, input_data):
+        return self.model.predict_proba(input_data)
     
-    def evaluate(self):
-        target = ['Target','Target1','Target2','Target3']
-        test_features = self.test.drop(columns=target).values
-        preds = self.predict(test_features)
-        actual = self.test[target]
+    def predict_with_threshold(self, input_data, threshold=0.8):
+        probabilities = self.class_probabilities(input_data)
+        predictions = (probabilities >= threshold).astype(int)
+        return predictions
+        
+    
+    # def evaluate(self):
+    #     target = ['Target','Target1','Target2','Target3']
+    #     test_features = self.test.drop(columns=target).values
+    #     preds = self.predict(test_features)
+    #     actual = self.test[target]
+    #     acc = classification_report(actual, preds)
+    #     return acc
+    def evaluate(self, threshold=0.8):
+        test_features = self.test.drop(columns=['Target','Target1','Target2','Target3']).values
+        preds = self.predict_with_threshold(test_features, threshold)
+        actual = self.test[['Target','Target1','Target2','Target3']].values
         acc = classification_report(actual, preds)
         return acc
     
@@ -74,7 +85,7 @@ class XBoostTuned:
 
 #Save the model in a pickle file.
     @staticmethod 
-    def save_model(model, model_path='stock-increement2.pkl'):
+    def save_model(model, model_path='stock-increement3.pkl'):
          joblib.dump(model, model_path)
 
 

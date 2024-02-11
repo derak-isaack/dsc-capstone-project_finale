@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np 
 from xgboost import XGBRegressor, XGBClassifier
 from sklearn.metrics import classification_report
 import joblib
@@ -14,7 +15,7 @@ df = pd.read_csv('StockLogistic.csv')
 df.dropna(inplace=True)
 df['Date'] = pd.to_datetime(df['Date'])
 df = df.set_index('Date')
-df.drop(columns=['Unnamed: 0','Month','Year'], inplace=True)
+df.drop(columns=['Unnamed: 0','Unnamed: 0.1','Month','Year'], inplace=True)
 
 from xgboost import plot_importance
 
@@ -27,20 +28,6 @@ class XBoostTuned:
         self.split_data()
         self.train_baseline()
         
-        # Convert the date column and set it as index.
-    # def date_convert(self):
-    #     self.data['Date'] = pd.to_datetime(self.data['Date'])
-    #     self.data = self.data.set_index('Date')
-        
-    # def fill_missing(self):
-    #      self.data['Mean'].fillna(method='ffill', inplace=True)
-    #      self.data[['Dividends per share','Earnings Per Share']] = self.data[['Dividends per share','Earnings Per Share']].fillna(method='bfill')
-         
-    # Split the data.
-    # def split_data(self):
-    #     train_size = 3400
-    #     self.train = self.data[:train_size]
-    #     self.test = self.data[train_size:]
     def split_data(self):
         tscv = TimeSeriesSplit(n_splits=3)  # Define the number of splits
         
@@ -64,19 +51,54 @@ class XBoostTuned:
         self.model = MultiOutputClassifier(XGBClassifier(learning_rate=0.2, n_estimators=300, max_depth=4))
         
         # Train the best model
-        self.model.fit(self.train.drop(columns=target), self.train[target])
+        # self.model.fit(self.train.drop(columns=target), self.train[target])
+        train_x = self.train.drop(columns=target).values  # Convert train features to numpy array
+        train_y = self.train[target].values  # Convert train targets to numpy array
         
-    def predict_classes(self):
-        target = ['Target','Target1','Target2','Target3'] 
-        probs = self.model.predict(self.test.drop(columns=target))
-        return probs 
+        self.model.fit(train_x, train_y)
+        
+    # def predict_classes(self):
+    #     target = ['Target','Target1','Target2','Target3']
+    #     test_x = self.test.drop(columns=target).values 
+    #     preds = []
+        
+    #     for tgt in target:
+    #     #     pred = self.model.predict(self.test.drop(columns=[tgt]))
+    #     #     preds.append(pred)
+    #     # return preds 
+    #         if tgt in self.test.columns:  # Check if the target column is present in the test data
+    #             pred = self.model.predict(test_x)  # Drop only the current target column
+    #             preds.append(pred)
+    def train_baseline(self):
+        target = ['Target','Target1','Target2','Target3']
+        self.model = MultiOutputClassifier(XGBClassifier(learning_rate=0.2, n_estimators=300, max_depth=4))
+        
+        train_features = self.train.drop(columns=target).values
+        train_targets = self.train[target].values
+        
+        self.model.fit(train_features, train_targets)
+    
+    def predict(self, input_data):
+        # Preprocess input_data if necessary
+        # Make predictions using the underlying model
+        predictions = self.model.predict(input_data)
+        return predictions
+        # return preds
     # Evaluate the model.
+    # def evaluate(self):
+    #     target = ['Target','Target1','Target2','Target3']
+    #     probs = self.predict_classes()
+    #     actual = self.test[target] 
+    #     acc = classification_report(actual, probs)
+    #     return acc 
     def evaluate(self):
         target = ['Target','Target1','Target2','Target3']
-        probs = self.predict_classes()
-        actual = self.test[target] 
-        acc = classification_report(actual, probs)
-        return acc 
+        test_features = self.test.drop(columns=target).values
+        preds = self.predict(test_features)
+        actual = self.test[target]
+        acc = classification_report(actual, preds)
+        return acc
+
     # Plot the features. 
     def plot_feature_importance(self):
         plot_importance(self.model.estimators_[0])

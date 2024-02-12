@@ -18,6 +18,9 @@
 ## Overview
 East African Breweries Limited (EABL) has a rich history rooted in East Africa's economic and social fabric. Established in 1922, EABL has grown to become a leading beverage company, contributing significantly to the region's economy. Over the years, EABL has built a portfolio of iconic brands, becoming synonymous with quality and innovation in the brewing industry.EABL holds a pivotal role in the East African beverage market, offering a diverse range of alcoholic and non-alcoholic products. Its flagship brands, including Tusker Lager and Guinness, have become household names, reflecting the company's commitment to quality craftsmanship.
 
+## Motivation
+The Kenya Finance Act 2023 came up with new tax reforms laws that saw the **Kenya Revenue Authority** demand more from EABL. The taxman puts EABL  at s tight spot because of the requrement to remit taxes within 24hrs after any consignment of their products leave their storage. This uncondusive environment for doing business casts doubts amongst investors and shareholders alike because of the uncertainity that lies ahead. They have now been forced to depend on day-to-day loans from banks to abide by the harsh directive. 
+
 ## EDA
 - Volatility Analysis - To calculate the daily returns of EABL's stock.
 

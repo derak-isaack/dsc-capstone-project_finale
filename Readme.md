@@ -21,6 +21,18 @@ East African Breweries Limited (EABL) has a rich history rooted in East Africa's
 ## Motivation
 The Kenya Finance Act 2023 came up with new tax reforms laws that saw the **Kenya Revenue Authority** demand more from EABL. The taxman puts EABL  at s tight spot because of the requrement to remit taxes within 24hrs after any consignment of their products leave their storage. This uncondusive environment for doing business casts doubts amongst investors and shareholders alike because of the uncertainity that lies ahead. They have now been forced to depend on day-to-day loans from banks to abide by the harsh directive. 
 
+## Resources
+### IDE, Language, Files
+ - Editors: Jupyter Notebook, VSCode, Google Colab (https://colab.research.google.com/)
+-  Python version: Python 3.9
+-  Code: main.ipynb, streamlit.py
+### Python Packages Used
+- Data Manipulation: Pandas, Numpy.
+- Data Visualization: Matplotlib, Seaborn
+- Modeling: Sklearn, XGBoost
+- Sentiment Analysis: vaderSentiment
+- UI: Streamlit
+
 ## EDA
 - Volatility Analysis - To calculate the daily returns of EABL's stock.
 
@@ -74,15 +86,3 @@ Create an account on streamlit to allow for deployment. To build a more robust m
 
 To improve the UI, the user only needs to input the previous **High, Open and low** prices to determine the next future stock prices. The suer won't be constarined by any time frames. 
 
-
-## Resources
-### IDE, Language, Files
- - Editors: Jupyter Notebook, VSCode, Google Colab (https://colab.research.google.com/)
--  Python version: Python 3.9
--  Code: main.ipynb, streamlit.py
-### Python Packages Used
-- Data Manipulation: Pandas, Numpy.
-- Data Visualization: Matplotlib, Seaborn
-- Modeling: Sklearn, XGBoost
-- Sentiment Analysis: vaderSentiment
-- UI: Streamlit

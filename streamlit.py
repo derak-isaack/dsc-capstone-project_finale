@@ -81,11 +81,11 @@ def main():
                 
                 predicted_probabilities = model.predict_proba(input_data)
 
-        # Convert probabilities to binary predictions using a threshold
+                # Convert probabilities to binary formart using a threshold
                 threshold = 0.8
                 predicted_values = (predicted_probabilities >= threshold).astype(int)
 
-        # Display predictions
+                 # Display predictions
                 st.write("Predicted values for all three classes:")
                 st.write(predicted_values)
 

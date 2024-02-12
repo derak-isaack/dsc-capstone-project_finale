@@ -13,6 +13,13 @@
 ## Overview
 East African Breweries Limited (EABL) has a rich history rooted in East Africa's economic and social fabric. Established in 1922, EABL has grown to become a leading beverage company, contributing significantly to the region's economy. Over the years, EABL has built a portfolio of iconic brands, becoming synonymous with quality and innovation in the brewing industry.EABL holds a pivotal role in the East African beverage market, offering a diverse range of alcoholic and non-alcoholic products. Its flagship brands, including Tusker Lager and Guinness, have become household names, reflecting the company's commitment to quality craftsmanship.
 
+## EDA
+- Volatility Analysis - To calculate the daily returns of EABL's stock.
+- Trend Analysis - To examine the historical price data to identify  prevailing trends, seasonal patterns and any potential autocorrelation in the stock price overtime.
+- Trade Spike Analysis - To identify and understand instances where EABL's trading volume deviates significantly from it's typical levels.
+- Dividend Analysis - To undestand the trends and patterns of EABL's dividend payouts.
+
+
 ## Resources
 ### IDE, Language, Files
  - Editors: Jupyter Notebook, VSCode, Google Colab (https://colab.research.google.com/)

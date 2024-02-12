@@ -60,6 +60,8 @@ To get the perfect model for deployment, apply tuning iteratively, with the aim 
 The final model had an average precision score of 90% at a threshold value of 0.8. 
 
 ## Deployment
+![alt text](<Screenshot (550).png>)
+The app can be found on (https://dsc-capstone-projectfinale-fiheu7mawjihsmxmnfw2wj.streamlit.app/)
 Create a copy of the original dataframe for easier manouevre, perform all cleaning and pre-processing in an OOP class to minimize data leakage. Include the modelling steps in the class using the model that achieved the best score after tuning. The model that had the best score in our case was the XGBoost model which learns patterns around data pretty quick. 
 
 Save the model to a pickled file as outlined step by step in [text](model1.py) then create a streamlit file for deployment while importing the necessary and required libraries. 
@@ -73,6 +75,8 @@ Save the model to a pickled file as outlined step by step in [text](model1.py) t
 Create an account on streamlit to allow for deployment. To build a more robust model that is applicable in any event, we did away with the date column because we wanted a model that is adoptable in any kind of future scenarios without the limitation of time. 
 
 To improve the UI, the user only needs to input the previous **High, Open and low** prices to determine the next future stock prices. The suer won't be constarined by any time frames. 
+
+
 ## Resources
 ### IDE, Language, Files
  - Editors: Jupyter Notebook, VSCode, Google Colab (https://colab.research.google.com/)

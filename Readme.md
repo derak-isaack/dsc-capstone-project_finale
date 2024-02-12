@@ -16,6 +16,8 @@ East African Breweries Limited (EABL) has a rich history rooted in East Africa's
 ## EDA
 - Volatility Analysis - To calculate the daily returns of EABL's stock.
 - Trend Analysis - To examine the historical price data to identify  prevailing trends, seasonal patterns and any potential autocorrelation in the stock price overtime.
+- Autocorrelation Analysis - To determine  the correlation of stock prices with past values.
+git
 - Trade Spike Analysis - To identify and understand instances where EABL's trading volume deviates significantly from it's typical levels.
 - Dividend Analysis - To undestand the trends and patterns of EABL's dividend payouts.
 

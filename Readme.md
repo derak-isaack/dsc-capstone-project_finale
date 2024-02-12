@@ -19,21 +19,15 @@
 --------------------------------------------------------------
 East African Breweries Limited (EABL) has a rich history rooted in East Africa's economic and social fabric. Established in 1922, EABL has grown to become a leading beverage company, contributing significantly to the region's economy. Over the years, EABL has built a portfolio of iconic brands, becoming synonymous with quality and innovation in the brewing industry.EABL holds a pivotal role in the East African beverage market, offering a diverse range of alcoholic and non-alcoholic products. Its flagship brands, including Tusker Lager and Guinness, have become household names, reflecting the company's commitment to quality craftsmanship.
 
-## Data Sourcing
----------------------------------------------------------------------
-- EABL stock prices history ()
-- Quarterly inflation rates()
-- Daily exchange rates()
-- Quarterly unemployment rates()
-- Monthly interest rates()
-- Sentiments(Twitter & Instagram)
-To reproduce the same data to be used for modelling, run the python codes in the MergeScripts folder starting with **[text](MergeScripts/stock+inflation_merge.py), [text](MergeScripts/stock+inflation+exchange.py), and finally  [text](MergeScripts/stock+inflation+exchange+dividends.py).
-
-## Explorative Data Analysis
+## EDA
 - Volatility Analysis - To calculate the daily returns of EABL's stock.
+
 - Trend Analysis - To examine the historical price data to identify  prevailing trends, seasonal patterns and any potential autocorrelation in the stock price overtime.
+
 - Autocorrelation Analysis - To determine  the correlation of stock prices with past values.
+
 - Trade Spike Analysis - To identify and understand instances where EABL's trading volume deviates significantly from it's typical levels.
+
 - Dividend Analysis - To undestand the trends and patterns of EABL's dividend payouts.
 
 ## Sentiment Analysis

@@ -39,6 +39,14 @@ def main():
         exchange_rates = 167
         interest_rates = 12.5
         dividends_announced = 1
+        low_price = 104
+        inflation = 6.9
+        tommorow = 103
+        tommorow1 = 104
+        tommorow2 = 105
+        tommorow3 = 101
+        volumes = 100000
+        days = 3
         
         if st.button("Predict"):
             # input_data = pd.DataFrame({'Date': [text_image], 'Forecast Time': [text_message]})
@@ -54,7 +62,15 @@ def main():
             'Unemployment': [unemployment_rates],
             'Mean': [exchange_rates],
             'Interest rates': [interest_rates],
-            'Amount': [dividends_announced]
+            'Amount': [dividends_announced],
+            'Low': [low_price],
+            '12-Month Inflation': [inflation],
+            'Tomorrow': [tommorow],
+            'Tomorrow1': [tommorow1],
+            'Tomorrow2': [tommorow2],
+            'Tomorrow3': [tommorow3],
+            'Volume': [volumes],
+            'Day': [days]
     })
             
             

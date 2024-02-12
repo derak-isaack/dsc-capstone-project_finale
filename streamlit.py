@@ -73,43 +73,64 @@ def main():
             'Day': [days]
     })
             
-            
+            input_data = {}
             for indicator in selected_indicators:
                 indicator_value = st.number_input(f"Enter {indicator}")
                 input_data[indicator] = indicator_value
                 
+                predicted_probabilities = model.predict_proba(pd.DataFrame(input_data))
                 
-                predicted_probabilities = model.predict_proba(input_data)
-
-                # Convert probabilities to binary formart using a threshold
-                threshold = 0.8
-                predicted_values = (predicted_probabilities >= threshold).astype(int)
-
-                 # Display predictions
-                st.write("Predicted values for all three classes:")
-                st.write(predicted_values)
-
-                    # Display prediction for each class
-                # Assuming predicted_values is a list of predicted outputs corresponding to ['Target', 'Target1', 'Target2', 'Target3']
                 targets_labels_mapping = {'Target': 'Close', 'Target1': 'High', 'Target2': 'Open', 'Target3': 'Low'}
 
-                    # Iterate through each target class and display the predicted value with the corresponding label
-                # Iterate over each row in the DataFrame
-                for index, row in predicted_values.iterrows():
-                    # Iterate over each target class and display the predicted value with the corresponding label
-                    for target_class, predicted_value in zip(['Target', 'Target1', 'Target2', 'Target3'], row):
-                        predicted_label = targets_labels_mapping[target_class]
-                        st.write(f"Predicted value for {predicted_label}: {predicted_value}")
+                # Create a DataFrame to display predicted probabilities with labels
+                probabilities_df = pd.DataFrame(predicted_probabilities, columns=['Probability'])
+                probabilities_df['Label'] = [targets_labels_mapping[target_class] for target_class in model.classes_]
 
-                # Check if any of the classes predict an increase in any of the targets
-                if predicted_values.eq(1).any().any():
-                    # Get the labels of classes predicting an increase
-                    predicted_classes_increasing = [targets_labels_mapping[target_class] for target_class, predicted_value in zip(['Target', 'Target1', 'Target2', 'Target3'], row) if predicted_value == 1]
+                # Display the predicted probabilities table
+                st.write("Predicted probabilities for each target class:")
+                st.write(probabilities_df)
+
+                # Check if any of the classes predict an increase
+                if (predicted_probabilities > 0.8).any():
+                    predicted_classes_increasing = probabilities_df[probabilities_df['Probability'] > 0.8]['Label']
                     st.success(f"At least one of the following classes predicts an increase: {', '.join(predicted_classes_increasing)}")
                     st.balloons()
                 else:
                     st.error("None of the classes predict an increase.")
                     st.warning("Better luck next time!")
+                
+                
+                # predicted_probabilities = model.predict_proba(input_data)
+
+                # # Convert probabilities to binary formart using a threshold
+                # threshold = 0.8
+                # predicted_values = (predicted_probabilities >= threshold).astype(int)
+
+                #  # Display predictions
+                # st.write("Predicted values for all three classes:")
+                # st.write(predicted_values)
+
+                #     # Display prediction for each class
+                # # Assuming predicted_values is a list of predicted outputs corresponding to ['Target', 'Target1', 'Target2', 'Target3']
+                # targets_labels_mapping = {'Target': 'Close', 'Target1': 'High', 'Target2': 'Open', 'Target3': 'Low'}
+
+                #     # Iterate through each target class and display the predicted value with the corresponding label
+                # # Iterate over each row in the DataFrame
+                # for index, row in predicted_values.iterrows():
+                #     # Iterate over each target class and display the predicted value with the corresponding label
+                #     for target_class, predicted_value in zip(['Target', 'Target1', 'Target2', 'Target3'], row):
+                #         predicted_label = targets_labels_mapping[target_class]
+                #         st.write(f"Predicted value for {predicted_label}: {predicted_value}")
+
+                # # Check if any of the classes predict an increase in any of the targets
+                # if predicted_values.eq(1).any().any():
+                #     # Get the labels of classes predicting an increase
+                #     predicted_classes_increasing = [targets_labels_mapping[target_class] for target_class, predicted_value in zip(['Target', 'Target1', 'Target2', 'Target3'], row) if predicted_value == 1]
+                #     st.success(f"At least one of the following classes predicts an increase: {', '.join(predicted_classes_increasing)}")
+                #     st.balloons()
+                # else:
+                #     st.error("None of the classes predict an increase.")
+                #     st.warning("Better luck next time!")
 
                 # for i, target_class in enumerate(['Target', 'Target1', 'Target2', 'Target3']):
                 #     st.write(f"Predicted value for {target_class}: {predicted_values[i]}")

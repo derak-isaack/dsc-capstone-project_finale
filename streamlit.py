@@ -10,7 +10,7 @@ import sklearn
 import joblib
 model_path = 'stock-increement3.pkl'
 model = joblib.load(open(model_path, 'rb'))
-stock_indicators = ['Open','Close','High','Average']
+stock_indicators = ['Open','Close','High','Low']
 def main():   
     
     st.title(" EABL Stock Movement Predictor".upper())
@@ -94,26 +94,23 @@ def main():
                 targets_labels_mapping = {'Target': 'Close', 'Target1': 'High', 'Target2': 'Open', 'Target3': 'Low'}
 
                     # Iterate through each target class and display the predicted value with the corresponding label
-                if not predicted_values:
-                    st.error("No predictions available.")
-                else:
-                    # Iterate through each target class and display the predicted value with the corresponding label
-                    for i, target_class in enumerate(['Target', 'Target1', 'Target2', 'Target3']):
-                        # Check if the index is within the bounds of predicted_values
-                        if i < len(predicted_values):
-                            predicted_label = targets_labels_mapping[target_class]
-                            st.write(f"Predicted value for {predicted_label}: {predicted_values[i]}")
-                        else:
-                            st.error(f"No predicted value available for {target_class}.")
+                # Iterate over each row in the DataFrame
+                for index, row in predicted_values.iterrows():
+                    # Iterate over each target class and display the predicted value with the corresponding label
+                    for target_class, predicted_value in zip(['Target', 'Target1', 'Target2', 'Target3'], row):
+                        predicted_label = targets_labels_mapping[target_class]
+                        st.write(f"Predicted value for {predicted_label}: {predicted_value}")
 
-                    # Check if any of the classes predict an increase in any of the targets
-                if 1 in predicted_values:
-                    predicted_classes_increasing = [targets_labels_mapping['Target' + str(i)] for i, val in enumerate(predicted_values) if val == 1]
+                # Check if any of the classes predict an increase in any of the targets
+                if predicted_values.eq(1).any().any():
+                    # Get the labels of classes predicting an increase
+                    predicted_classes_increasing = [targets_labels_mapping[target_class] for target_class, predicted_value in zip(['Target', 'Target1', 'Target2', 'Target3'], row) if predicted_value == 1]
                     st.success(f"At least one of the following classes predicts an increase: {', '.join(predicted_classes_increasing)}")
                     st.balloons()
                 else:
                     st.error("None of the classes predict an increase.")
                     st.warning("Better luck next time!")
+
                 # for i, target_class in enumerate(['Target', 'Target1', 'Target2', 'Target3']):
                 #     st.write(f"Predicted value for {target_class}: {predicted_values[i]}")
 

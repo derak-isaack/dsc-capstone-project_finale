@@ -90,16 +90,40 @@ def main():
                 st.write(predicted_values)
 
                     # Display prediction for each class
-                for i, target_class in enumerate(['Target', 'Target1', 'Target2', 'Target3']):
-                    st.write(f"Predicted value for {target_class}: {predicted_values[i]}")
+                # Assuming predicted_values is a list of predicted outputs corresponding to ['Target', 'Target1', 'Target2', 'Target3']
+                targets_labels_mapping = {'Target': 'Close', 'Target1': 'High', 'Target2': 'Open', 'Target3': 'Low'}
 
-                    # Check if any of the classes predict an increase
-                    if 1 in predicted_values:
-                        st.success("At least one class predicts an increase!")
-                        st.balloons()
-                    else:
-                        st.error("None of the classes predict an increase.")
-                        st.warning("Better luck next time!")
+                    # Iterate through each target class and display the predicted value with the corresponding label
+                if not predicted_values:
+                    st.error("No predictions available.")
+                else:
+                    # Iterate through each target class and display the predicted value with the corresponding label
+                    for i, target_class in enumerate(['Target', 'Target1', 'Target2', 'Target3']):
+                        # Check if the index is within the bounds of predicted_values
+                        if i < len(predicted_values):
+                            predicted_label = targets_labels_mapping[target_class]
+                            st.write(f"Predicted value for {predicted_label}: {predicted_values[i]}")
+                        else:
+                            st.error(f"No predicted value available for {target_class}.")
+
+                    # Check if any of the classes predict an increase in any of the targets
+                if 1 in predicted_values:
+                    predicted_classes_increasing = [targets_labels_mapping['Target' + str(i)] for i, val in enumerate(predicted_values) if val == 1]
+                    st.success(f"At least one of the following classes predicts an increase: {', '.join(predicted_classes_increasing)}")
+                    st.balloons()
+                else:
+                    st.error("None of the classes predict an increase.")
+                    st.warning("Better luck next time!")
+                # for i, target_class in enumerate(['Target', 'Target1', 'Target2', 'Target3']):
+                #     st.write(f"Predicted value for {target_class}: {predicted_values[i]}")
+
+                #     # Check if any of the classes predict an increase
+                #     if 1 in predicted_values:
+                #         st.success("At least one class predicts an increase!")
+                #         st.balloons()
+                #     else:
+                #         st.error("None of the classes predict an increase.")
+                #         st.warning("Better luck next time!")
 
 if __name__ == '__main__':
     main()

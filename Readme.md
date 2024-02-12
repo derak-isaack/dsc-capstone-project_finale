@@ -36,7 +36,7 @@ NB: Nitter scrapper has a limit of 80 tweets per session because after that it t
 ![Nitter scraper](<Screenshot (549).png>)
 - Concat and merge all EABL sentiments into a single dataframe for easier analysis. 
 - Perform a sentiment analysis as well as visualize the most common set of topics discussed an dtheir respective distributions.
- ![alt text](frequent.png)
+ ![alt text](twets.png)
  ![alt text](distribution.png)
 
 ## Modelling

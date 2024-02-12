@@ -16,7 +16,6 @@
 ![Jupyter](https://img.shields.io/badge/Jupyter-F37626?logo=jupyter&logoColor=fff&style=for-the-badge)
 
 ## Overview
---------------------------------------------------------------
 East African Breweries Limited (EABL) has a rich history rooted in East Africa's economic and social fabric. Established in 1922, EABL has grown to become a leading beverage company, contributing significantly to the region's economy. Over the years, EABL has built a portfolio of iconic brands, becoming synonymous with quality and innovation in the brewing industry.EABL holds a pivotal role in the East African beverage market, offering a diverse range of alcoholic and non-alcoholic products. Its flagship brands, including Tusker Lager and Guinness, have become household names, reflecting the company's commitment to quality craftsmanship.
 
 ## EDA
@@ -32,7 +31,7 @@ East African Breweries Limited (EABL) has a rich history rooted in East Africa's
 
 ## Sentiment Analysis
 - Scrape twitter sentiments about EABL using nitter scraper(https://pypi.org/project/nitter/). 
-To scrape tweets, run the scripts in the **Scrapers** directory independently while changing the search term in the **get_tweets** function then specify the term and length. 
+To scrape tweets, run the scripts in the **Scrapers** directory independently while changing the search term in the **get_tweets** function then specify the term and length. The scripts can be found at [Tweeter scrappers](Scrapers)
 NB: Nitter scrapper has a limit of 80 tweets per session because after that it throws an error.
 ![Nitter scraper](<Screenshot (549).png>)
 - Concat and merge all EABL sentiments into a single dataframe for easier analysis. 
@@ -58,13 +57,15 @@ The final model had an average precision score of 90% at a threshold value of 0.
 The app can be found on (https://dsc-capstone-projectfinale-fiheu7mawjihsmxmnfw2wj.streamlit.app/)
 Create a copy of the original dataframe for easier manouevre, perform all cleaning and pre-processing in an OOP class to minimize data leakage. Include the modelling steps in the class using the model that achieved the best score after tuning. The model that had the best score in our case was the XGBoost model which learns patterns around data pretty quick. 
 
-Save the model to a pickled file as outlined step by step in [text](model1.py) then create a streamlit file for deployment while importing the necessary and required libraries. 
+Save the model to a pickled file as outlined step by step in [deployment model](model1.py) then create a streamlit file for deployment while importing the necessary and required libraries. 
 * Import the file name with the name of class used.
 * Create a requirements.txt file with the respective library versions to avoid conflicts. The libraries used in this project include:
 1. xgboost==2.0.0
 2. joblib==1.2.0
 3. streamlit==1.30.0
 4. scikit-learn==1.2.2
+
+They can be found in the file [requirements](requirements.txt)
 
 Create an account on streamlit to allow for deployment. To build a more robust model that is applicable in any event, we did away with the date column because we wanted a model that is adoptable in any kind of future scenarios without the limitation of time. 
 

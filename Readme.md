@@ -13,15 +13,7 @@
 ## Overview
 East African Breweries Limited (EABL) has a rich history rooted in East Africa's economic and social fabric. Established in 1922, EABL has grown to become a leading beverage company, contributing significantly to the region's economy. Over the years, EABL has built a portfolio of iconic brands, becoming synonymous with quality and innovation in the brewing industry.EABL holds a pivotal role in the East African beverage market, offering a diverse range of alcoholic and non-alcoholic products. Its flagship brands, including Tusker Lager and Guinness, have become household names, reflecting the company's commitment to quality craftsmanship.
 
-## Data PreProcessing and EDA
-1. Handling missing values from the `Earnings Per Share` and `Dividends per share` using the backfill method. This method is used because of the assumption the pay-outs won't change to a greater degree.Also `Mean` using the forwardfill method.
-
-2. Convert the date column to a datetime formart for easier manipulation.
-
-3. Engineer new features for `Earnings per share` and `Dividends per share` analysis. 
-
-4. Rename column `Amount` to `Amount_Announced` because it contains the amounts for interim dividends pay-outs to make it more descriptive.
-
+## EDA
 Performed EDA on the following:
 
 - Volatility Analysis - To calculate the daily returns of EABL's stock.

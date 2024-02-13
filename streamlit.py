@@ -92,13 +92,27 @@ def main():
             predicted_values = (predicted_probabilities >= threshold).astype(int)
             
             predicted_names = ['Close', 'High', 'Open', 'Low']
-            # predicted_values2 = predicted_values.reshape(-1)
-            predicted_values_mapped = [predicted_names[i] for i in predicted_values].reshape(-1)
-            predicted_values_df = pd.DataFrame(predicted_values_mapped, columns=['Predicted'])
-            st.write("Predicted movement for Close, High, Open and Low stock prices:")
-            st.write(predicted_values_df)
-            df_class_predictions = pd.DataFrame({'Class': predicted_names, 'Predicted': predicted_values_mapped})
-            st.write(df_class_predictions)
+            # # predicted_values2 = predicted_values.reshape(-1)
+            # predicted_values_mapped = [predicted_names[i] for i in predicted_values].reshape(-1)
+            # predicted_values_df = pd.DataFrame(predicted_values_mapped, columns=['Predicted'])
+            # st.write("Predicted movement for Close, High, Open and Low stock prices:")
+            # st.write(predicted_values_df)
+            # df_class_predictions = pd.DataFrame({'Class': predicted_names, 'Predicted': predicted_values.reshape(-1)})
+            # st.write(df_class_predictions)
+            # Check if any of the classes predict an increase
+            if 1 in predicted_values:
+                st.success("At least one class predicts an increase!")
+                st.balloons()
+                
+                # Create DataFrame with class names and reshaped predicted values
+                df_class_predictions = pd.DataFrame({'Class': predicted_names, 'Predicted': predicted_values.reshape(-1)})
+
+                # Display the DataFrame
+                st.write(df_class_predictions)
+            else:
+                st.error("None of the classes predict an increase.")
+                st.warning("Better luck next time!")
+
             
 
             # st.write("Predicted movement for Close, High, Open and Low stock prices:")

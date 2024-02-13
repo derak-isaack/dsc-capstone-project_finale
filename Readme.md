@@ -55,7 +55,7 @@ NB: Nitter scrapper has a limit of 80 tweets per session because after that it t
  ![alt text](distribution.png)
 
 ## Modelling
-Goal: Develop a robust time series model to forecast the **Closing, High & Low** EABL stock prices leveraging the use of market indicators to get better predictions. 
+Goal: Develop a robust time series model to forecast the **Closing, High, Low and Open** EABL stock prices leveraging the use of market indicators to get better predictions. 
 Challenge: High multicollinearity between the prices. 
 
 Alternative: Shift the objective to classification by applying shifting to each of the prices one day foraward to capture short term trends and momentum. For every change in price, mark it as 1 else, 0.

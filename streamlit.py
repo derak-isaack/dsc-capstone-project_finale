@@ -93,7 +93,7 @@ def main():
     # Display predictions for all classe
 
             # Display predictions
-            st.write("Predicted values for all three classes:")
+            st.write("Predicted movement for Close, High, Open and Low stock prices:")
             st.write(predicted_values)
 
             # Display prediction for each class
@@ -101,23 +101,20 @@ def main():
             #     class_predictions[target_class] = predicted_values[i]
             #     # st.write(f"Predicted value for {target_class}: {predicted_values[i]}")
             #     st.write(f"Predicted value for {class_targets[target_class]}: {predicted_values[i]}")
-            for i, (target_class, target_value) in enumerate(class_targets.items()):
-                # Access the corresponding predicted value using the class name
-                predicted_value = predicted_values[i]
-                # Store the prediction
-                class_predictions[target_class] = predicted_value
-                # Display the prediction
-                st.write(f"Predicted value for {target_value}: {predicted_value}")
+            df_predicted_values = pd.DataFrame(predicted_values, columns=['Predicted'])
+            
+            df_class_predictions = pd.DataFrame({'Class': list(class_targets.values()), 'Predicted': predicted_values})
+
 
             # Check if any of the classes predict an increase
             if 1 in predicted_values:
-                st.success("At least one class predicts an increase!")
+                st.success("At least one Price predicts a postive movement!")
                 st.balloons()
             else:
                 st.error("None of the classes predict an increase.")
                 st.warning("Better luck next time!")
                 
-            print(class_predictions)
+            print(df_class_predictions)
 
 if __name__ == '__main__':
     main()

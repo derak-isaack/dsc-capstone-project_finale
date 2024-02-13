@@ -74,31 +74,54 @@ def main():
     })
             
             
-            # for indicator in selected_indicators:
-            #     indicator_value = st.number_input(f"Enter {indicator}")
-            #     input_data[indicator] = indicator_value
-
-                
             predicted_probabilities = model.predict_proba(input_data)
-                
-            targets_labels_mapping = {'Target': 'Close', 'Target1': 'High', 'Target2': 'Open', 'Target3': 'Low'}
 
-                # Create a DataFrame to display predicted probabilities with labels
-            probabilities_df = pd.DataFrame(predicted_probabilities, columns=['Probability'])
-            probabilities_df['Label'] = [targets_labels_mapping[target_class] for target_class in model.classes_]
+            # Convert probabilities to binary predictions using a threshold
+            threshold = 0.8
+            predicted_values = (predicted_probabilities >= threshold).astype(int)
 
-                # Display the predicted probabilities table
-            st.write("Predicted probabilities for each target class:")
-            st.write(probabilities_df)
+            # Display predictions
+            st.write("Predicted values for all three classes:")
+            st.write(predicted_values)
 
-                # Check if any of the classes predict an increase
-            if (predicted_probabilities > 0.8).any():
-                predicted_classes_increasing = probabilities_df[probabilities_df['Probability'] > 0.8]['Label']
-                st.success(f"At least one of the following classes predicts an increase: {', '.join(predicted_classes_increasing)}")
+            # Display prediction for each class
+            for i, target_class in enumerate(['Target', 'Target1', 'Target2', 'Target3']):
+                st.write(f"Predicted value for {target_class}: {predicted_values[i]}")
+
+            # Check if any of the classes predict an increase
+            if 1 in predicted_values:
+                st.success("At least one class predicts an increase!")
                 st.balloons()
             else:
                 st.error("None of the classes predict an increase.")
                 st.warning("Better luck next time!")
+
+if __name__ == '__main__':
+    main()
+            
+        
+
+                
+            # predicted_probabilities = model.predict_proba(input_data)
+                
+            # targets_labels_mapping = {'Target': 'Close', 'Target1': 'High', 'Target2': 'Open', 'Target3': 'Low'}
+
+            #     # Create a DataFrame to display predicted probabilities with labels
+            # probabilities_df = pd.DataFrame(predicted_probabilities, columns=['Probability'])
+            # probabilities_df['Label'] = [targets_labels_mapping[target_class] for target_class in model.classes_]
+
+            #     # Display the predicted probabilities table
+            # st.write("Predicted probabilities for each target class:")
+            # st.write(probabilities_df)
+
+            #     # Check if any of the classes predict an increase
+            # if (predicted_probabilities > 0.8).any():
+            #     predicted_classes_increasing = probabilities_df[probabilities_df['Probability'] > 0.8]['Label']
+            #     st.success(f"At least one of the following classes predicts an increase: {', '.join(predicted_classes_increasing)}")
+            #     st.balloons()
+            # else:
+            #     st.error("None of the classes predict an increase.")
+            #     st.warning("Better luck next time!")
                 
                 
                 # predicted_probabilities = model.predict_proba(input_data)
@@ -144,8 +167,8 @@ def main():
                 #         st.error("None of the classes predict an increase.")
                 #         st.warning("Better luck next time!")
 
-if __name__ == '__main__':
-    main()
+# if __name__ == '__main__':
+#     main()
 
         
 #         if st.button("Predict"):

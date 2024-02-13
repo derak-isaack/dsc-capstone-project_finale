@@ -61,11 +61,13 @@ Challenge: High multicollinearity between the prices.
 Alternative: Shift the objective to classification by applying shifting to each of the prices one day foraward to capture short term trends and momentum. For every change in price, mark it as 1 else, 0.
 
 Use a multiclass output classifier to predict the probability of occurence of any of the classes. 
-Challenge: You must have a threshold value that sets the confidence levels or points above and below which a prediction will be considered to rise or not. To get a sensible & reccommended threshold all while balancing between the **TPR & FPR**, plot the **ROC Curve** and by visual inspection, find a balance. 
+Challenge: You must have a threshold value that sets the confidence levels or points above and below which a prediction will be considered to rise or not. To get a sensible & reccommended threshold all while balancing between the **TPR & FPR**, plot the **ROC Curve** and by visual inspection, find a balance. The ROC plot as well as the scores for the final deployed model can be found [here](test.ipynb). 
 
 To get the perfect model for deployment, apply tuning iteratively, with the aim of improving the precision scores of the various classes. The final model should support multioutput classification or alternatively you can use a Scikit-learn wrapper(https://scikit-learn.org/0.21/modules/generated/sklearn.multioutput.MultiOutputClassifier.html) that supporrts such outputs. All boosting algorithms support multioutputs. 
 
-The final model had an average precision score of 90% at a threshold value of 0.8. 
+The final model had an average F1 score of 85% at a threshold value of 0.8. This score was chosen as our evaluation metric because it offers a balance between the **False negatives** & **False Positives**. 
+
+A False negative would mean a certain price is meant to increase but the model predicts that it will not, potentially resulting in missed investment opportunities. Conversely, a false positive occurs when the model predicts an increase in price where there isn't one, leading to potentially misguided investment decisions. Therefore, the F1 Score, by considering both precision and recall, provides a comprehensive evaluation of the model's performance, helping to strike a balance between these competing concerns and ultimately improving the reliability of investment decision-making. The 
 
 ## Deployment
 ![alt text](<Screenshot (550).png>)

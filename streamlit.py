@@ -73,15 +73,13 @@ def main():
             'Day': [days]
     })
             
-            input_data = []
-            for indicator in selected_indicators:
-                indicator_value = st.number_input(f"Enter {indicator}")
-                input_data.append({indicator: indicator_value})
-                
-            input_df = pd.DataFrame(input_data)
+            
+            # for indicator in selected_indicators:
+            #     indicator_value = st.number_input(f"Enter {indicator}")
+            #     input_data[indicator] = indicator_value
 
                 
-            predicted_probabilities = model.predict_proba(pd.DataFrame(input_df))
+            predicted_probabilities = model.predict_proba(input_data)
                 
             targets_labels_mapping = {'Target': 'Close', 'Target1': 'High', 'Target2': 'Open', 'Target3': 'Low'}
 

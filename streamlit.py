@@ -97,10 +97,17 @@ def main():
             st.write(predicted_values)
 
             # Display prediction for each class
-            for i, target_class in enumerate(['Target', 'Target1', 'Target2', 'Target3']):
-                class_predictions[target_class] = predicted_values[i]
-                # st.write(f"Predicted value for {target_class}: {predicted_values[i]}")
-                st.write(f"Predicted value for {class_targets[target_class]}: {predicted_values[i]}")
+            # for i, target_class in enumerate(['Target', 'Target1', 'Target2', 'Target3']):
+            #     class_predictions[target_class] = predicted_values[i]
+            #     # st.write(f"Predicted value for {target_class}: {predicted_values[i]}")
+            #     st.write(f"Predicted value for {class_targets[target_class]}: {predicted_values[i]}")
+            for i, (target_class, target_value) in enumerate(class_targets.items()):
+                # Access the corresponding predicted value using the class name
+                predicted_value = predicted_values[i]
+                # Store the prediction
+                class_predictions[target_class] = predicted_value
+                # Display the prediction
+                st.write(f"Predicted value for {target_value}: {predicted_value}")
 
             # Check if any of the classes predict an increase
             if 1 in predicted_values:

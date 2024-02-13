@@ -79,6 +79,18 @@ def main():
             # Convert probabilities to binary predictions using a threshold
             threshold = 0.8
             predicted_values = (predicted_probabilities >= threshold).astype(int)
+            
+            class_targets = {
+            'Target': 'Close Price',
+            'Target1': 'High Price',
+            'Target2': 'Open Price',  # Adjust as per your actual class names
+            'Target3': 'Low Price'  # Adjust as per your actual class names
+        }
+
+    # Create a dictionary to store predictions
+            class_predictions = {}
+
+    # Display predictions for all classe
 
             # Display predictions
             st.write("Predicted values for all three classes:")
@@ -86,7 +98,9 @@ def main():
 
             # Display prediction for each class
             for i, target_class in enumerate(['Target', 'Target1', 'Target2', 'Target3']):
-                st.write(f"Predicted value for {target_class}: {predicted_values[i]}")
+                class_predictions[target_class] = predicted_values[i]
+                # st.write(f"Predicted value for {target_class}: {predicted_values[i]}")
+                st.write(f"Predicted value for {class_targets[target_class]}: {predicted_values[i]}")
 
             # Check if any of the classes predict an increase
             if 1 in predicted_values:
@@ -95,6 +109,8 @@ def main():
             else:
                 st.error("None of the classes predict an increase.")
                 st.warning("Better luck next time!")
+                
+            print(class_predictions)
 
 if __name__ == '__main__':
     main()

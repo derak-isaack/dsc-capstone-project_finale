@@ -78,26 +78,29 @@ def main():
                 indicator_value = st.number_input(f"Enter {indicator}")
                 input_data.append({indicator: indicator_value})
                 
-                predicted_probabilities = model.predict_proba(pd.DataFrame(input_data))
+            input_df = pd.DataFrame(input_data)
+
                 
-                targets_labels_mapping = {'Target': 'Close', 'Target1': 'High', 'Target2': 'Open', 'Target3': 'Low'}
+            predicted_probabilities = model.predict_proba(pd.DataFrame(input_df))
+                
+            targets_labels_mapping = {'Target': 'Close', 'Target1': 'High', 'Target2': 'Open', 'Target3': 'Low'}
 
                 # Create a DataFrame to display predicted probabilities with labels
-                probabilities_df = pd.DataFrame(predicted_probabilities, columns=['Probability'])
-                probabilities_df['Label'] = [targets_labels_mapping[target_class] for target_class in model.classes_]
+            probabilities_df = pd.DataFrame(predicted_probabilities, columns=['Probability'])
+            probabilities_df['Label'] = [targets_labels_mapping[target_class] for target_class in model.classes_]
 
                 # Display the predicted probabilities table
-                st.write("Predicted probabilities for each target class:")
-                st.write(probabilities_df)
+            st.write("Predicted probabilities for each target class:")
+            st.write(probabilities_df)
 
                 # Check if any of the classes predict an increase
-                if (predicted_probabilities > 0.8).any():
-                    predicted_classes_increasing = probabilities_df[probabilities_df['Probability'] > 0.8]['Label']
-                    st.success(f"At least one of the following classes predicts an increase: {', '.join(predicted_classes_increasing)}")
-                    st.balloons()
-                else:
-                    st.error("None of the classes predict an increase.")
-                    st.warning("Better luck next time!")
+            if (predicted_probabilities > 0.8).any():
+                predicted_classes_increasing = probabilities_df[probabilities_df['Probability'] > 0.8]['Label']
+                st.success(f"At least one of the following classes predicts an increase: {', '.join(predicted_classes_increasing)}")
+                st.balloons()
+            else:
+                st.error("None of the classes predict an increase.")
+                st.warning("Better luck next time!")
                 
                 
                 # predicted_probabilities = model.predict_proba(input_data)

@@ -36,6 +36,7 @@ def main():
         opening_price = st.number_input("Enter Last opening price") 
         closing_price = st.number_input("Enter Last closing price")
         high_price = st.number_input("Enter Last High price")
+        low_price = st.number_input("Enter Last Low price")
         average_price = st.number_input("Enter Last Average price")
         
         
@@ -45,7 +46,6 @@ def main():
         exchange_rates = 167
         interest_rates = 12.5
         dividends_announced = 1
-        low_price = 104
         inflation = 6.9
         tommorow = 103
         tommorow1 = 104

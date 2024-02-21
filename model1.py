@@ -10,7 +10,7 @@ from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error
 from sklearn.linear_model import LinearRegression 
 import matplotlib.pyplot as plt
 from sklearn.model_selection import TimeSeriesSplit
-# from catboost import CatBoostClassifier
+
 
 df = pd.read_csv('StockLogistic.csv')
 # df.drop(columns=['Unnamed: 0','Month'], inplace=True) 
@@ -55,29 +55,23 @@ class XBoostTuned:
         self.model = xgb.XGBClassifier(iterations=100, learning_rate=0.1, depth=3)
         self.model.fit(features, target)
     
+    #Predict probabilities with threshold set at 0.8
     def class_probabilities(self, input_data):
         return self.model.predict_proba(input_data)
-    
+    #Predict porbabilities with threshold set at 0.8
     def predict_with_threshold(self, input_data, threshold=0.8):
         probabilities = self.class_probabilities(input_data)
         predictions = (probabilities >= threshold).astype(int)
         return predictions
         
-    
-    # def evaluate(self):
-    #     target = ['Target','Target1','Target2','Target3']
-    #     test_features = self.test.drop(columns=target).values
-    #     preds = self.predict(test_features)
-    #     actual = self.test[target]
-    #     acc = classification_report(actual, preds)
-    #     return acc
+    #Evaluate the model
     def evaluate(self, threshold=0.8):
         test_features = self.test.drop(columns=['Target','Target1','Target2','Target3']).values
         preds = self.predict_with_threshold(test_features, threshold)
         actual = self.test[['Target','Target1','Target2','Target3']].values
         acc = classification_report(actual, preds)
         return acc
-    
+    # Plot the important features
     def plot_feature_importance(self):
         plot_importance(self.model.estimators_[0])
         plt.title('Factors influencing stock price hikes')

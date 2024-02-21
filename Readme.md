@@ -92,8 +92,9 @@ To improve the UI, the user only needs to input the previous **High, Open and lo
 
 ## Contribution
 To contribute to this project:
-*Clone the repo.
-*Create your own branch.
-*Navigate to (https://www.eabl.com/share-price-performance) to get the latest share price history starting from February 2024.
-*Copy and paste the prices on the **Final_merge CSV** found [here](MergedData).
-*Rerun the [main notebook](main.ipynb), [model1 python file](model1.py), [save model script](save_model.py), and finally [streamlit file](streamlit.py) to get reproducible results. 
+
+* Clone the repo.
+* Create your own branch.
+* Navigate to (https://www.eabl.com/share-price-performance) to get the latest share price history starting from February 2024.
+* Copy and paste the prices on the **Final_merge CSV** found [here](MergedData).
+* Rerun the [main notebook](main.ipynb), [model1 python file](model1.py), [save model script](save_model.py), and finally [streamlit file](streamlit.py) to get reproducible results. 

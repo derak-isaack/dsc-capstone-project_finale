@@ -27,12 +27,7 @@ def main():
 )
     
     info = ''
-    # opening_price = st.number_input("Enter Last opening price") 
-    # closing_price = st.number_input("Enter Last closing price")
-    # high_price = st.number_input("Enter Last High price")
-    # average_price = st.number_input("Enter Last Average price")
-
-    # Dropdowns for selecting economic indicators
+    
     selected_indicators = st.multiselect("Select economic indicators", stock_indicators)
     
     with st.expander("Check whether a stock will increase or not"):
@@ -60,10 +55,7 @@ def main():
         days = 3
         
         if st.button("Predict"):
-            # input_data = pd.DataFrame({'Date': [text_image], 'Forecast Time': [text_message]})
             input_data = pd.DataFrame({
-            # 'Date': [text_image], 
-            # 'Forecast Time': [text_message],
             'Open': [opening_price],
             'Close': [closing_price],
             'High': [high_price], 
@@ -92,14 +84,7 @@ def main():
             predicted_values = (predicted_probabilities >= threshold).astype(int)
             
             predicted_names = ['Close', 'High', 'Open', 'Low']
-            # # predicted_values2 = predicted_values.reshape(-1)
-            # predicted_values_mapped = [predicted_names[i] for i in predicted_values].reshape(-1)
-            # predicted_values_df = pd.DataFrame(predicted_values_mapped, columns=['Predicted'])
-            # st.write("Predicted movement for Close, High, Open and Low stock prices:")
-            # st.write(predicted_values_df)
-            # df_class_predictions = pd.DataFrame({'Class': predicted_names, 'Predicted': predicted_values.reshape(-1)})
-            # st.write(df_class_predictions)
-            # Check if any of the classes predict an increase
+            
             if 1 in predicted_values:
                 st.success("At least one class predicts an increase!")
                 st.balloons()
@@ -113,20 +98,6 @@ def main():
                 st.error("None of the classes predict an increase.")
                 st.warning("Better luck next time!")
 
-            
-
-            # st.write("Predicted movement for Close, High, Open and Low stock prices:")
-            # st.write(df_predicted_values) 
-            # df_class_predictions = pd.DataFrame({'Class': list(class_targets.values()), 'Predicted': predicted_values})
-
-
-            # Check if any of the classes predict an increase
-            # if 1 in predicted_values:
-            #     st.success("At least one Price predicts a postive movement!")
-            #     st.balloons()
-            # else:
-            #     st.error("None of the predicted prices have an increase.")
-            #     st.warning("Better luck next time!")
                  
 
 if __name__ == '__main__':

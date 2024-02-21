@@ -19,7 +19,7 @@
 East African Breweries Limited (EABL) has a rich history rooted in East Africa's economic and social fabric. Established in 1922, EABL has grown to become a leading beverage company, contributing significantly to the region's economy. Over the years, EABL has built a portfolio of iconic brands, becoming synonymous with quality and innovation in the brewing industry.EABL holds a pivotal role in the East African beverage market, offering a diverse range of alcoholic and non-alcoholic products. Its flagship brands, including Tusker Lager and Guinness, have become household names, reflecting the company's commitment to quality craftsmanship.
 
 ## Motivation
-The Kenya Finance Act 2023 came up with new tax reforms laws that saw the **Kenya Revenue Authority** demand more from EABL. The taxman puts EABL  at s tight spot because of the requrement to remit taxes within 24hrs after any consignment of their products leave their storage. This uncondusive environment for doing business casts doubts amongst investors and shareholders alike because of the uncertainity that lies ahead. They have now been forced to depend on day-to-day loans from banks to abide by the harsh directive. 
+The Kenya Finance Act 2023 came up with new tax reforms laws that saw the **Kenya Revenue Authority** demand more from EABL. The taxman puts EABL  at a tight spot because of the requirement to remit taxes within 24hrs after any consignment of their products leave their storage. This uncondusive environment for doing business casts doubts amongst investors and shareholders alike because of the uncertainity that lies ahead. This harsh tax directive has forced them to depend on day-to-day loans from banks to comply with the rules. 
 
 ## Resources
 ### IDE, Language, Files
@@ -55,19 +55,21 @@ NB: Nitter scrapper has a limit of 80 tweets per session because after that it t
  ![alt text](distribution.png)
 
 ## Modelling
-Goal: Develop a robust time series model to forecast the **Closing, High, Low and Open** EABL stock prices leveraging the use of market indicators to get better predictions. 
-Challenge: High multicollinearity between the prices. 
+**Goal:** Develop a robust time series model to forecast the **Closing, High, Low and Open** EABL stock prices leveraging the use of market indicators to get better predictions. 
 
-Alternative: Shift the objective to classification by applying shifting to each of the prices one day foraward to capture short term trends and momentum. For every change in price, mark it as 1 else, 0.
+**Challenge:** High multicollinearity between the prices. 
+
+**Alternative:** Shift the objective to classification by applying shifting to each of the prices one day foraward to capture short term trends and momentum. For every change in price, mark it as 1 else, 0.
 
 Use a multiclass output classifier to predict the probability of occurence of any of the classes. 
-Challenge: You must have a threshold value that sets the confidence levels or points above and below which a prediction will be considered to rise or not. To get a sensible & reccommended threshold all while balancing between the **TPR & FPR**, plot the **ROC Curve** and by visual inspection, find a balance. The ROC plot as well as the scores for the final deployed model can be found [here](test.ipynb). 
+
+**Challenge:** You must have a threshold value that sets the confidence levels or points above and below which a prediction will be considered to rise or not. To get a sensible & reccommended threshold all while balancing between the **TPR & FPR**, plot the **ROC Curve** and by visual inspection, find a balance. The ROC plot as well as the scores for the final deployed model can be found [here](test.ipynb). 
 
 To get the perfect model for deployment, apply tuning iteratively, with the aim of improving the precision scores of the various classes. The final model should support multioutput classification or alternatively you can use a Scikit-learn wrapper(https://scikit-learn.org/0.21/modules/generated/sklearn.multioutput.MultiOutputClassifier.html) that supporrts such outputs. All boosting algorithms support multioutputs. 
 
 The final model had an average F1 score of 85% at a threshold value of 0.8. This score was chosen as our evaluation metric because it offers a balance between the **False negatives** & **False Positives**. 
 
-A False negative would mean a certain price is meant to increase but the model predicts that it will not, potentially resulting in missed investment opportunities. Conversely, a false positive occurs when the model predicts an increase in price where there isn't one, leading to potentially misguided investment decisions. Therefore, the F1 Score, by considering both precision and recall, provides a comprehensive evaluation of the model's performance, helping to strike a balance between these competing concerns and ultimately improving the reliability of investment decision-making. The 
+A False negative would mean a certain price is meant to increase but the model predicts that it will not, potentially resulting in missed investment opportunities. Conversely, a false positive occurs when the model predicts an increase in price where there isn't one, leading to potentially misguided investment decisions. Therefore, the F1 Score, by considering both precision and recall, provides a comprehensive evaluation of the model's performance, helping to strike a balance between these competing concerns and ultimately improving the reliability of investment decision-making. 
 
 ## Deployment
 ![alt text](<Screenshot (550).png>)
@@ -84,7 +86,14 @@ Save the model to a pickled file as outlined step by step in [deployment model](
 
 They can be found in the file [requirements](requirements.txt)
 
-Create an account on streamlit to allow for deployment. To build a more robust model that is applicable in any event, we did away with the date column because we wanted a model that is adoptable in any kind of future scenarios without the limitation of time. 
+Create an account on streamlit to allow for deployment. To build a more robust model that is applicable in any event, we did away with the date column because of the need of bulding a model that is adoptable in any kind of future scenarios without the limitation of time. 
 
-To improve the UI, the user only needs to input the previous **High, Open and low** prices to determine the next future stock prices. The suer won't be constarined by any time frames. 
+To improve the UI, the user only needs to input the previous **High, Open and low** prices to determine the next future stock prices. The user won't be constrained by time frames. 
 
+## Contribution
+To contribute to this project:
+*Clone the repo.
+*Create your own branch.
+*Navigate to (https://www.eabl.com/share-price-performance) to get the latest share price history starting from February 2024.
+*Copy and paste the prices on the **Final_merge CSV** found [here](MergedData).
+*Rerun the [main notebook](main.ipynb), [model1 python file](model1.py), [save model script](save_model.py), and finally [streamlit file](streamlit.py) to get reproducible results. 

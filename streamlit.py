@@ -44,7 +44,7 @@ def main():
         earnings_per_share = 10
         unemployment_rates = 3.7
         exchange_rates = 167
-        interest_rates = 12.5
+        interest_rates = 13
         dividends_announced = 1
         inflation = 6.9
         tommorow = 103

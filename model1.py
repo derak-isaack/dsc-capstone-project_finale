@@ -17,7 +17,7 @@ df = pd.read_csv('StockLogistic.csv')
 df.dropna(inplace=True)
 df['Date'] = pd.to_datetime(df['Date'])
 df = df.set_index('Date')
-df.drop(columns=['Unnamed: 0','Unnamed: 0.1','Month','Year'], inplace=True)
+df.drop(columns=['Unnamed: 0','Month','Year'], inplace=True)
 
 from xgboost import plot_importance
 
